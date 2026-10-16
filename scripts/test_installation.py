@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -61,6 +62,65 @@ class InstallationTests(unittest.TestCase):
         self.assertEqual(report["status"], "pass")
         self.assertEqual(report["smoke_checked"], 21)
         self.assertTrue(all(style["status"] == "pass" for style in report["styles"]))
+
+    def test_installed_style_3_1_validator_help_is_available(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            installation = Path(temp_dir)
+            with zipfile.ZipFile(self.archive) as archive:
+                archive.extractall(installation)
+            validator = installation / "hand-drawn/scripts/validate_style_3_1_asset.py"
+            self.assertTrue((installation / "hand-drawn/docs/style-3.1-review.md").is_file())
+            self.assertTrue((installation / "hand-drawn/docs/style-selection.md").is_file())
+            self.assertTrue((installation / "hand-drawn/docs/style-comparison.md").is_file())
+            completed = subprocess.run([sys.executable, "-B", str(validator), "--help"],
+                                       cwd=installation, capture_output=True, text=True)
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        for argument in ("--bundle", "--run-record", "--review"):
+            self.assertIn(argument, completed.stdout)
+
+    def test_installed_catalog_works_offline_inside_a_git_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            installation = Path(temp_dir)
+            with zipfile.ZipFile(self.archive) as archive:
+                archive.extractall(installation)
+            root = installation / "hand-drawn"
+            subprocess.run(["git", "init", "-q", str(root)], check=True, capture_output=True)
+            cache = installation / "unused-image-cache"
+            environment = {**os.environ, "HAND_DRAWN_OFFLINE": "1", "HAND_DRAWN_IMAGE_CACHE": str(cache)}
+            catalog = subprocess.run([sys.executable, "-B", str(root / "scripts/render_prompt.py"), "--catalog"],
+                                     cwd=installation, env=environment, capture_output=True, text=True)
+            legacy = subprocess.run([sys.executable, "-B", str(root / "scripts/render_prompt.py"), "--list"],
+                                    cwd=installation, env=environment, capture_output=True, text=True)
+            checked = subprocess.run([sys.executable, "-B", str(root / "scripts/check_skill.py"), "--skip-smoke", "--json"],
+                                     cwd=installation, env=environment, capture_output=True, text=True)
+            self.assertEqual(catalog.returncode, 0, catalog.stderr)
+            self.assertEqual(legacy.returncode, 0, legacy.stderr)
+            self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
+            self.assertEqual(len(json.loads(catalog.stdout)), 21)
+            self.assertEqual([{key: value for key, value in style.items() if key != "guidance"}
+                              for style in json.loads(catalog.stdout)], json.loads(legacy.stdout))
+            self.assertFalse((root / "benchmarks").exists())
+            self.assertFalse(cache.exists())
+
+    def test_broken_installed_guidance_preserves_explicit_generation(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            installation = Path(temp_dir)
+            with zipfile.ZipFile(self.archive) as archive:
+                archive.extractall(installation)
+            root = installation / "hand-drawn"
+            (root / "catalog/style-guidance.json").write_text("{broken", encoding="utf-8")
+            renderer = [sys.executable, "-B", str(root / "scripts/render_prompt.py")]
+            catalog = subprocess.run(renderer + ["--catalog"], cwd=installation, capture_output=True, text=True)
+            generated = subprocess.run(renderer + ["--style", "8", "--subject", "a bird", "--format", "json"],
+                                       cwd=installation, capture_output=True, text=True)
+            checked = subprocess.run([sys.executable, "-B", str(root / "scripts/check_skill.py"), "--skip-smoke", "--json"],
+                                     cwd=installation, capture_output=True, text=True)
+            self.assertEqual(catalog.returncode, 2)
+            self.assertNotIn("Traceback", catalog.stderr)
+            self.assertEqual(generated.returncode, 0, generated.stderr)
+            self.assertNotIn("guidance", json.loads(generated.stdout))
+            self.assertEqual(checked.returncode, 2)
+            self.assertTrue(any("选型说明校验失败" in failure for failure in json.loads(checked.stdout)["failures"]))
 
     def test_package_manifest_rejects_changed_and_missing_files(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

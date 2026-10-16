@@ -12,9 +12,10 @@
   - 中文名:极简线条 / 火柴人 / 蜡笔 / 童涂 / 吉卜力 / 蜡笔童涂潦草版 / 潦草自画版 / 亲子投稿蜡笔故事卡 / 家庭投稿蜡笔卡 / 小豆人 / MS Paint / 烂涂鸦 / 圆珠笔 / 单线涂鸦 / 蜡笔实拍 / 真蜡笔 / 水墨 / 写意 / 国画 / 像素 / 像素风 / 情绪叙事 / 淡彩速写 / 速写讲故事 / 二维水彩风格 / 二维水彩 / 复古动画 / 概念稿 / 概念设定 / 暖光童画 / 动画概念暖绘 / 北欧纸雕 / 纸雕 / 纸艺 / 衍纸 / 北欧绘本水粉 / 北欧绘本 / 绘本水粉 / 斯堪的纳维亚绘本 / 大鼻软偶 / 软偶 / 软胶潮玩 / 大鼻子潮玩 / 聚光水粉立绘 / 聚光立绘 / 水粉立绘 / 墨线绘本 / 墨线淡彩 / 线稿绘本 / 速写绘本 / 暖色扁平绘本 / 扁平暖色绘本 / 几何扁平绘本 / 圆头红线 / 圆头红线极简童画 / 黑红白圆头童画 / 暖黄墨线 / 暖黄墨线情绪小剧场
   - 编号:1–20,另有稳定变体 3.1(蜡笔童涂-潦草自画版)。旧编号 1.1、1.2 已删除。
   - 英文别名:`xkcd` `stickman` `minimal-line`(1) / `crayon` `kid-crayon`(2) / `ghibli`(3) / `rawkid` `kid-scrawl` `stick-kid` `family-crayon-card` `parent-child-crayon` `submission-crayon`(3.1) / `bean` `blob`(4) / `ms-paint` `bad-doodle` `ugly`(5) / `scribble` `pen-scribble` `ballpoint`(6) / `real-crayon` `crayon-photo`(7) / `ink-wash` `ink` `shuimo` `chinese-painting`(8) / `pixel` `pixel-art` `8-bit` `16-bit`(9) / `emo-sketch` `story-sketch` `watercolor-sketch` `light-watercolor`(10) / `retro-concept` `mid-century` `gouache-concept`(11) / `sunlit-storybook` `vis-dev` `storybook-visdev`(12) / `paper-folk` `papercraft` `nordic-papercraft` `paper-sculpture` `quilling`(13) / `nordic-storybook` `scandi-gouache` `scandinavian-storybook` `soft-gouache`(14) / `softnose` `softnose-vinyl` `bignose-toy` `vinyl-toy` `art-toy`(15) / `gouache-spotlight` `spotlight-gouache` `character-spotlight`(16) / `inked-storybook` `ink-storybook` `sketch-storybook` `storybook-ink`(17) / `warm-flat-storybook` `flat-storybook` `geometric-storybook` `warm-flat`(18) / `roundhead-redline` `redline-roundhead` `graphite-redline`(19) / `warm-yellow-ink-story` `yellow-ink-story` `mustard-ink-story`(20)
-  - 注意 `涂鸦/doodle` 本身有歧义(#4 小豆人、#5 MS Paint、#6 圆珠笔都沾涂鸦):用户只说"涂鸦/画烂点"而不指明时,按未指定处理→展示菜单让其选。
+  - 注意 `涂鸦/doodle` 本身有歧义(#4 小豆人、#5 MS Paint、#6 圆珠笔都沾涂鸦):用户只说"涂鸦/画烂点"而不指明时,按未指定处理，依据用途缩小候选或展示完整菜单，等待选择。
   - 用户说“亲子手绘”“家庭蜡笔画”“亲子蜡笔故事”“像一家人站在白纸上的蜡笔画”或“潦草自画版”时,直接采用 3.1;这些表达不再进入通用画风菜单。只有单独说“手绘风”且没有亲子、家庭或蜡笔语义时,才按未指定处理。
-- **用户未指定** → 展示下面这个菜单,**停下等用户选**,不要自己替他挑:
+- **用户未指定** → 先读取 [有来源的选型说明](docs/style-selection.md)（或运行 `python3 -B scripts/render_prompt.py --catalog`）。用途与视觉意图足够明确时，提供 2–3 个候选，各写匹配理由和重要限制，保留完整菜单入口，**停下等用户选**。不能编造匹配分数，也不能把选型建议当成新配方指令。若依据不足以缩小候选，展示下面的完整菜单并等待选择；显式指定及上述直接映射始终优先。
+- 需求与候选配方明确冲突时说明冲突，不删改配方或静默换风格。完整景物与单动作白底等无法同时满足的要求，应先讨论取舍。
 
   ```
   请选择画风(回复编号或名字):
@@ -22,7 +23,7 @@
   1. 极简黑白线条讲解漫画(xkcd 火柴人)—— 纯细线火柴人、圆角分镜、标题+说明
   2. 蜡笔童涂 —— 5岁小孩用蜡笔画的笨拙"坏画",歪扭出框、引人发笑
   3. 吉卜力风 —— 柔和水彩、暖光、治愈梦幻的手绘动画感
-  3.1 蜡笔童涂-潦草自画版 —— 普通大人歪线稿+孩子粗乱蜡笔涂抹,固定小点眼红脸蛋与明亮大留白;正式生产强制锚点与三阶段 workflow
+  3.1 蜡笔童涂-潦草自画版 —— 普通大人歪线稿+孩子粗乱蜡笔涂抹,固定小点眼红脸蛋与明亮大留白;正式生产强制锚点、三次图像操作与独立验收
   4. 小豆人涂鸦信息图 —— 黑色圆豆人讲解图,单橙点缀、手绘箭头标注,竖版多格
   5. MS Paint 烂涂鸦 —— 鼠标硬画的病毒级"故意画烂"风,越烂越好笑
   6. 圆珠笔单线涂鸦 —— 黑色圆珠笔缠绕线速写,艺术手稿感,适合肖像/动物
@@ -57,7 +58,7 @@
 - 画风锚点只约束视觉语言,不能让模型复制其中人物、衣服、站位与情节。若还需固定角色,角色参考图作为另一份输入单独传递,不得替代画风锚点。
 - 锚点按 PNG 尺寸与解码后的像素 SHA-256 固定;EXIF、IPTC、C2PA 等元数据变化不改变画风身份,但任何实际像素变化都必须失败关闭。锚点缺失、损坏、被换图或调用端不能传参考图时,停止正式生产并明确报告“画风锚点未生效”;不得退回文字版、不得改用业务项目自定义画风块蒙混出图。
 - 需要可机读调用包时执行:`python3 scripts/render_prompt.py --style 3.1 --subject '…' --text '…' --aspect 3:4 --format json`。JSON 会给出最终 prompt、画风锚点绝对路径和参考角色。
-- `family-crayon-card-v3` 是强制三阶段合同。第一阶段按顶层 `prompt` + `references` 生成基础图;第二阶段按 `workflow.stages[id=scribble-correction]` 做第一轮涂抹修正;第三阶段按 `workflow.stages[id=scribble-chaos-correction]` 打散残余规整排线。每个编辑阶段都把前一阶段输出作为 Image 1、同一画风锚点作为 Image 2,完整使用对应阶段 prompt。前两阶段状态只能是 `intermediate-only`,只有第三阶段输出才允许进入 final。
+- `family-crayon-card-v4` 是三次图像操作加一次独立验收的合同。第一阶段按顶层 `prompt` + `references` 生成基础图;第二阶段按 `workflow.stages[id=scribble-correction]` 做第一轮涂抹修正;第三阶段按 `workflow.stages[id=scribble-chaos-correction]` 打散残余规整排线。每个编辑阶段都把前一阶段输出作为 Image 1、同一画风锚点作为 Image 2,完整使用对应阶段 prompt。前两阶段状态只能是 `intermediate-only`，第三阶段为 `final-candidate`；第四步 `style-contract-check` 核对原始包、三阶段运行记录与八项视觉审核，只有验收报告 pass 才给出 final。记录、信任边界及迁移见 [docs/style-3.1-review.md](docs/style-3.1-review.md)。
 - 两个编辑阶段都只修正蜡笔涂抹轨迹,必须保留人物、五官、姿势、动作、构图、物件数量、黑色轮廓、既有配色、白底和画幅。业务项目不得自己改写阶段 prompt,也不得因为任一中间图“看着还行”而跳过后续阶段。
 - 风格 3.1 的渲染器默认就是正式 JSON;`--format text` 会失败,只有明确加入 `--text-only-preview` 才允许非生产预览。连续角色参考用可重复的 `--character-reference PATH` 传入,它们排在固定 `style-only` 锚点之后。
 - `--subject` 只能描述人物、动作、关系和必要道具;检测到画风、线稿、配色、纸面及其常见组合表达时直接失败。3.1 无字页用 `--text '不加任何文字'`;有标题必须用独立 `--title '准确标题原文'`,渲染器负责生成固定文字指令,禁止自由填写 `--text` 或 `--var 文字`。
@@ -116,7 +117,7 @@
 
 默认只输出最终 prompt,放进代码块方便整段复制。**不要生图,不要附加解说**(除非用户另外问)。结尾可以用一行说明用的是哪种画风 + 是否注入了比例提示。
 
-例外:风格 3.1 用于正式生产、连续故事或多页作品时,输出正式 JSON 调用包,调用端必须完整执行三阶段 `workflow`;只复制 prompt、丢掉画风锚点或跳过任一修正阶段,都属于不合格调用,不能产出 final。风格 19 正式生产也输出 JSON 调用包;调用端必须携带原创锚点、锁定模型快照，并在基础生成后通过 `acceptance_contract` 才能把候选图标为 final。
+例外:风格 3.1 用于正式生产、连续故事或多页作品时,输出正式 JSON 调用包,调用端必须完整执行三次图像操作与独立验收的 `workflow`;只复制 prompt、丢掉画风锚点、跳过任一修正阶段或缺少有效审核,都属于不合格调用,不能产出 final。风格 19 正式生产也输出 JSON 调用包;调用端必须携带原创锚点、锁定模型快照，并在基础生成后通过 `acceptance_contract` 才能把候选图标为 final。
 
 风格 20 正式生产同样输出 JSON 调用包；基础图只能标为 `final-candidate`，通过机读验收器后才能标为 final。
 

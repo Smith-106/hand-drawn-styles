@@ -9,7 +9,7 @@
 1. 按 [PROTOCOL.md](PROTOCOL.md) 的 5 步流程执行(确定画风 → 取配方 → 自动填占位符 → 处理比例 → 输出 prompt)。
 2. 画风模板从 [STYLES.md](STYLES.md) 取。
 3. 能执行脚本时优先用 `scripts/render_prompt.py`,禁止手工缩写、同义改写或混入业务项目自定义画风规则。
-4. 风格 3.1 的正式生产、多页或连续故事必须完整消费渲染器 JSON 中的三阶段 `workflow`:基础生成后依次执行 `scribble-correction` 与 `scribble-chaos-correction`;前两阶段不可作为 final,任一阶段缺失时停止生产。
+4. 风格 3.1 的正式生产、多页或连续故事必须完整消费 `family-crayon-card-v4`：基础生成后依次执行 `scribble-correction` 与 `scribble-chaos-correction`，再执行 `style-contract-check`。三次图像操作只得到 `final-candidate`，独立验收报告为 pass 才能成为 final；证据不足或审核失败不可放行。记录与迁移见 [docs/style-3.1-review.md](docs/style-3.1-review.md)。
 5. 风格 19 正式生产必须完整使用正式 JSON 调用包:每张携带原创锚点,锁定模型快照和高保真参考图输入,基础图只标为 `candidate-only`,通过 `acceptance_contract` 后才能标为 final;任一条件不可用时停止生产。
 6. 风格 20 正式生产必须完整使用正式 JSON 调用包:使用固定原创锚点生成 `final-candidate`,然后运行机读验收器;失败候选整张拒收并重新生成,禁止用通用画风迁移编辑修补。
 7. 其他画风默认只输出最终 prompt 纯文本;风格 3.1/19/20 正式生产输出带参考锚点的 JSON 调用包。**不要生图**。

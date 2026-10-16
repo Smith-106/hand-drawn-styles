@@ -2,6 +2,8 @@
 
 这里按正式编号顺序展示样图与调用示例。完整配方只以根目录 [`STYLES.md`](../STYLES.md) 为准,避免示例页复制配方后发生漂移。
 
+不知道选哪种时，先看 [选型说明](../docs/style-selection.md)；容易混淆的 14/18、3.1/20、19/20，以及三个历史偏差案例，见 [画风对照](../docs/style-comparison.md)。下面保留全部编号定位，图片题材不同，不能当成已执行的同题实验；样例登记也不等于完整视觉审核或用户认可。
+
 原来的 `1`、`1.1`、`1.2` 三套配方已从旧位置删除;原 `2` 起的整数配方整体前移,因此下面的 `1` 是原 `2` 重编号后的新身份。用户认可的家庭蜡笔画风迁入 `3.1 蜡笔童涂-潦草自画版`。
 
 ## 1. 极简黑白线条讲解漫画
@@ -28,7 +30,7 @@
 
 > 输入示例:「用 3.1 画爸爸把零食袋放回柜子,男孩站在旁边看着,不加文字」
 >
-> 正式生产、连续故事和多页作品必须把 [assets/style-3.1/anchor-family.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-3.1/anchor-family.png) 作为纯画风参考随每一张请求传入,并完整执行 `family-crayon-card-v3` 的三阶段 workflow。
+> 正式生产、连续故事和多页作品必须把 [assets/style-3.1/anchor-family.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-3.1/anchor-family.png) 作为纯画风参考随每一张请求传入,并完整执行 `family-crayon-card-v4` 的三次图像操作和独立验收。第三次输出仍是候选，验收报告 pass 才可成为 final；见 [记录与审核说明](../docs/style-3.1-review.md)。
 
 ## 4. 小豆人涂鸦信息图
 

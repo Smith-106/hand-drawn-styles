@@ -26,6 +26,38 @@ SPEC.loader.exec_module(RENDER_PROMPT)
 
 
 class RenderPromptTests(unittest.TestCase):
+    def test_recipe_and_correction_prompts_match_approved_baseline(self) -> None:
+        # Contract-only changes must not silently alter visual recipes (4132988).
+        expected_templates = {
+            "1": "c53c58d41d8863dce16b369f71252abb332a17f8486b1152917e73e7d96c0fad",
+            "2": "3a35430148844254f4f3f7a3ded3c6f62112d4f64ee3b48662227a622c3df8ee",
+            "3": "9511c0a6e2b85c29b1c56ac14e19ad017f18e3ca0ec96db0ca1c7e6eb4b20583",
+            "3.1": "90ec2fb4b565ae8030b2908100a411785ccd1ac44b1dca87db96ea0e1b44fcd8",
+            "4": "8c68baa897e15209239220182cc57b13c113515f8d7d9724b036e332ddf840f9",
+            "5": "a30b92cdbe3e10ace50857dcd7df09ec954ee0e0cf63a34fbbab44664e8bb29c",
+            "6": "b49d9a4d3f145dc672402b7b3670fed56e33740972a45da78552b3f4d71f2941",
+            "7": "36bed3c07424ecddbd6a0cd4bad476495cfdd6a9629ca62e0ebaa8acec477d3b",
+            "8": "75643d33845302934488598f65b5c41292c59316afec57679c157b1a829287ca",
+            "9": "bdea531e355bdf03d3fb280735b222a94228c685f52862e301b1534aeb251a6c",
+            "10": "a46910c70e578dbf608f8d2c520112fb33b877d3ed8147ae8d819fa8267e7d3f",
+            "11": "7c9612874104d5e44702d5f6c0cb8bc1e761e91501f2f24f8fda708a947fa639",
+            "12": "c709208be5dd986d13279bc95474bc51825e451792149bb129befab15b0a7344",
+            "13": "9454df2a3cafb2c927e0db20e2818d0eefda9a5ee9cff83f28af802e422bddf5",
+            "14": "7137ff94aad9df3d8043f3b09d28b4c14540d1c438309843ff0bc4210428b9fb",
+            "15": "276d632670e473b94ccdbf0d0afac4ca16d1bf5509d0c78c2d50cb5d4450c798",
+            "16": "89dd208ac149d227f6dc51d0c57c05585c408c882bd36a80295046055566b0b3",
+            "17": "e7a21b1d91df531d82b269842a67a4ce5d33589d222a77d68508d30452d8df6a",
+            "18": "608695cfb9edfc296711653c9ed78246cdad3119780e64767e9a7e5c99edb232",
+            "19": "8d20f8ade57c18c8d3e366fc064ffebcf81527494e520eba47b24a023b0fdd90",
+            "20": "980d1e844ea8496de2f248e86b41a2c27df4776733e940d0250547a570ff6cae"
+        }
+        self.assertEqual(set(RENDER_PROMPT.load_style_sections()), set(expected_templates))
+        for style_id, digest in expected_templates.items():
+            with self.subTest(style_id=style_id):
+                self.assertEqual(hashlib.sha256(RENDER_PROMPT.extract_template(style_id).encode("utf-8")).hexdigest(), digest)
+        self.assertEqual(hashlib.sha256(RENDER_PROMPT.STYLE_3_1_SCRIBBLE_CORRECTION_PROMPT.encode("utf-8")).hexdigest(), "e17c10538539c8b5321bd10b182f701b2752a0e8dd266d984c1f456fd08e4c18")
+        self.assertEqual(hashlib.sha256(RENDER_PROMPT.STYLE_3_1_SCRIBBLE_CHAOS_PROMPT.encode("utf-8")).hexdigest(), "34c649537e864550ae262cd2e9b6b15a6885f9b6de3f5a67b29214f79cf56847")
+
     def create_palette_fixture(self, directory: Path, name: str = "candidate") -> tuple[Path, Path]:
         image = directory / f"{name}.png"
         width = height = 100
@@ -89,7 +121,7 @@ class RenderPromptTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["style_id"], "3.1")
-        self.assertEqual(payload["style_contract"], "family-crayon-card-v3")
+        self.assertEqual(payload["style_contract"], "family-crayon-card-v4")
         self.assertIn("assets/style-3.1/anchor-family.png", payload["references"][0]["path"])
 
     def test_formal_json_has_public_url_and_verified_cached_reference(self) -> None:
@@ -123,7 +155,7 @@ class RenderPromptTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["style_id"], "3.1")
-        self.assertEqual(payload["style_contract"], "family-crayon-card-v3")
+        self.assertEqual(payload["style_contract"], "family-crayon-card-v4")
         self.assertEqual(payload["references"][0]["role"], "style-only")
         self.assertEqual(payload["references"][0]["priority"], "primary-visual-truth")
         self.assertTrue(Path(payload["references"][0]["path"]).is_file())
@@ -132,7 +164,7 @@ class RenderPromptTests(unittest.TestCase):
         self.assertNotIn("【主体】", payload["prompt"])
         self.assertNotIn("【文字】", payload["prompt"])
         self.assertEqual(payload["inputs"]["variables"]["主体"], "爸爸把零食袋放回柜子,男孩站在旁边看着")
-        self.assertEqual(payload["workflow"]["final_output_stage"], "scribble-chaos-correction")
+        self.assertEqual(payload["workflow"]["final_output_stage"], "style-contract-check")
         correction = payload["workflow"]["stages"][1]
         self.assertEqual(correction["operation"], "edit")
         self.assertTrue(correction["required"])
@@ -144,7 +176,14 @@ class RenderPromptTests(unittest.TestCase):
         self.assertEqual(chaos["id"], "scribble-chaos-correction")
         self.assertEqual(chaos["operation"], "edit")
         self.assertTrue(chaos["required"])
-        self.assertEqual(chaos["output_status"], "final")
+        self.assertEqual(chaos["output_status"], "final-candidate")
+        self.assertEqual(len(payload["workflow"]["stages"]), 4)
+        validation = payload["workflow"]["stages"][3]
+        self.assertEqual(validation["id"], "style-contract-check")
+        self.assertEqual(validation["operation"], "validate")
+        self.assertTrue(validation["required"])
+        self.assertEqual(validation["success_output_status"], "final")
+        self.assertEqual(payload["acceptance_contract"]["require_all_dimensions"], "pass")
         self.assertEqual(chaos["references"][0]["source"], "scribble-correction.output")
         self.assertEqual(chaos["references"][1]["role"], "style-only")
         self.assertIn("Leave 35-55%", chaos["prompt"])

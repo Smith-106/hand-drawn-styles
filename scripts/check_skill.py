@@ -21,7 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 RUNTIME_FILES = (
     "SKILL.md", "AGENTS.md", "PROTOCOL.md", "STYLES.md", "LICENSE", "INSTALL.md",
     "scripts/render_prompt.py", "scripts/check_skill.py",
-    "scripts/validate_style_20_asset.py",
+    "scripts/validate_style_20_asset.py", "scripts/validate_style_3_1_asset.py",
+    "docs/style-3.1-review.md", "docs/style-selection.md", "docs/style-comparison.md", "catalog/style-guidance.json",
     "scripts/hosted_images.py", "assets/image-manifest.json", "docs/image-hosting.md",
 )
 DEFAULT_SCENE = (
@@ -194,6 +195,10 @@ def build_check_report(root: Path, *, smoke: bool = True) -> dict[str, object]:
     failures += check_package_manifest(root)
     failures += check_repository_images(root)
     catalog = render_prompt.list_styles()
+    try:
+        render_prompt.load_style_guidance(root / "catalog/style-guidance.json", source_root=root)
+    except (OSError, ValueError) as error:
+        failures.append(f"选型说明校验失败: {error}")
     try:
         manifest = hosted_images.load_manifest(root / "assets/image-manifest.json")
         failures += check_hosted_references(root, manifest)

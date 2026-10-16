@@ -276,6 +276,127 @@ def list_styles() -> list[dict[str, object]]:
     return catalog
 
 
+GUIDANCE_FIELDS = {"suitable_for", "selection_cues", "limitations", "related_styles", "evidence"}
+GUIDANCE_EVIDENCE_TYPES = {"documented-example", "internal-reviewed", "user-approved", "not-recorded"}
+
+
+def parse_guidance_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    record: dict[str, object] = {}
+    for key, value in pairs:
+        if key in record:
+            raise ValueError(f"选型说明存在重复字段或画风编号: {key}")
+        record[key] = value
+    return record
+
+
+def require_guidance_text(value: object, label: str) -> None:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"选型说明 {label} 必须是非空文本")
+
+
+def require_guidance_fields(record: object, fields: set[str], label: str) -> dict:
+    if not isinstance(record, dict) or set(record) != fields:
+        raise ValueError(f"选型说明 {label} 字段必须为: {', '.join(sorted(fields))}")
+    return record
+
+
+def validate_guidance_sources(sources: object, root: Path, style_ids: set[str], *, allow_empty: bool = False) -> None:
+    if not isinstance(sources, list) or (not sources and not allow_empty):
+        raise ValueError("选型说明来源必须是非空列表；未登记证据可使用空列表")
+    for source in sources:
+        source = require_guidance_fields(source, {"document", "section", "availability"}, "source")
+        document = source["document"]
+        section = source["section"]
+        require_guidance_text(document, "source.document")
+        require_guidance_text(section, "source.section")
+        relative_path = Path(document)
+        if relative_path.is_absolute() or ".." in relative_path.parts or relative_path.suffix != ".md":
+            raise ValueError(f"选型说明来源必须是仓库内 Markdown 相对路径: {document}")
+        if source["availability"] not in ("runtime", "repository"):
+            raise ValueError("选型说明来源 availability 必须是 runtime 或 repository")
+        if document == "STYLES.md" and source["availability"] != "runtime":
+            raise ValueError("STYLES.md 必须标为运行必需来源")
+        path = (root / relative_path).resolve()
+        if not path.is_relative_to(root.resolve()):
+            raise ValueError(f"选型说明来源越界: {document}")
+        if not path.is_file():
+            if source["availability"] == "repository" and ((root / "PACKAGE-MANIFEST.json").is_file() or not (root / ".git").exists()):
+                continue
+            raise ValueError(f"选型说明来源不存在: {document}")
+        text = path.read_text(encoding="utf-8")
+        if section == "document":
+            continue
+        if section.startswith("style:"):
+            style_id = section.removeprefix("style:")
+            if style_id not in style_ids or re.search(rf"^## {re.escape(style_id)}(?:\.\s|\s)", text, re.MULTILINE) is None:
+                raise ValueError(f"选型说明来源画风章节不存在: {document} {section}")
+        elif section not in re.findall(r"^#{1,6}\s+(.+)$", text, re.MULTILINE):
+            raise ValueError(f"选型说明来源章节不存在: {document} {section}")
+
+
+def load_style_guidance(path: Path | None = None, *, source_root: Path | None = None) -> dict[str, dict]:
+    root = source_root or ROOT
+    guidance_path = path or root / "catalog/style-guidance.json"
+    payload = json.loads(guidance_path.read_text(encoding="utf-8"), object_pairs_hook=parse_guidance_object)
+    payload = require_guidance_fields(payload, {"schema_version", "styles"}, "root")
+    if type(payload["schema_version"]) is not int or payload["schema_version"] != 1:
+        raise ValueError("选型说明 schema_version 必须为 1")
+    styles = payload["styles"]
+    style_ids = {style["style_id"] for style in list_styles()}
+    if not isinstance(styles, dict) or set(styles) != style_ids:
+        raise ValueError("选型说明必须恰好覆盖当前全部画风编号")
+    for style_id, guidance in styles.items():
+        require_guidance_fields(guidance, GUIDANCE_FIELDS, style_id)
+        for field in GUIDANCE_FIELDS:
+            if not isinstance(guidance[field], list) or not guidance[field]:
+                raise ValueError(f"选型说明 {style_id}.{field} 必须是非空列表")
+        own_source = {"document": "STYLES.md", "section": f"style:{style_id}", "availability": "runtime"}
+        for suggestion in guidance["suitable_for"]:
+            require_guidance_fields(suggestion, {"task", "basis", "sources"}, "suitable_for")
+            require_guidance_text(suggestion["task"], "task")
+            if suggestion["basis"] != "editorial-suggestion":
+                raise ValueError("适用任务只能标为 editorial-suggestion，不代表用户实验结论")
+            validate_guidance_sources(suggestion["sources"], root, style_ids)
+        for cue in guidance["selection_cues"]:
+            require_guidance_fields(cue, {"description", "sources"}, "selection_cues")
+            require_guidance_text(cue["description"], "description")
+            validate_guidance_sources(cue["sources"], root, style_ids)
+            if own_source not in cue["sources"]:
+                raise ValueError(f"选型说明 {style_id} 识别点必须引用自身配方章节")
+        for limitation in guidance["limitations"]:
+            require_guidance_fields(limitation, {"kind", "description", "sources"}, "limitations")
+            require_guidance_text(limitation["description"], "description")
+            if limitation["kind"] not in ("recipe-constraint", "selection-advice"):
+                raise ValueError("限制必须区分 recipe-constraint 与 selection-advice")
+            validate_guidance_sources(limitation["sources"], root, style_ids)
+        related_ids: set[str] = set()
+        for related in guidance["related_styles"]:
+            require_guidance_fields(related, {"style_id", "difference", "sources"}, "related_styles")
+            target = related["style_id"]
+            if not isinstance(target, str) or target not in style_ids or target == style_id or target in related_ids:
+                raise ValueError(f"选型说明 {style_id} 相近画风编号未知、自指或重复")
+            related_ids.add(target)
+            require_guidance_text(related["difference"], "difference")
+            validate_guidance_sources(related["sources"], root, style_ids)
+            target_source = {"document": "STYLES.md", "section": f"style:{target}", "availability": "runtime"}
+            if own_source not in related["sources"] or target_source not in related["sources"]:
+                raise ValueError("相近画风差异必须引用两者的配方章节")
+        for evidence in guidance["evidence"]:
+            require_guidance_fields(evidence, {"type", "scope", "conclusion", "sources"}, "evidence")
+            evidence_type = evidence["type"]
+            if not isinstance(evidence_type, str) or evidence_type not in GUIDANCE_EVIDENCE_TYPES:
+                raise ValueError("选型说明证据类型无效")
+            require_guidance_text(evidence["scope"], "evidence.scope")
+            require_guidance_text(evidence["conclusion"], "evidence.conclusion")
+            validate_guidance_sources(evidence["sources"], root, style_ids, allow_empty=evidence_type == "not-recorded")
+    return styles
+
+
+def list_styles_with_guidance() -> list[dict[str, object]]:
+    guidance = load_style_guidance()
+    return [{**style, "guidance": guidance[style["style_id"]]} for style in list_styles()]
+
+
 def style_reference_urls(style_id: str) -> list[str]:
     section = load_style_sections().get(style_id, "")
     return sorted(set(re.findall(r"https://[^\s`<>\)\"']+\.(?:png|jpg|jpeg|webp)", section)))
@@ -533,6 +654,95 @@ def validate_character_references(items: list[str]) -> list[Path]:
     return paths
 
 
+STYLE_3_1_REVIEW_DIMENSIONS = (
+    "content-preservation", "face-language", "proportions", "line-language",
+    "scribble-language", "color-preservation", "composition-preservation",
+    "text-and-originality",
+)
+
+
+def style_3_1_acceptance_contract() -> dict[str, object]:
+    return {
+        "validator": "scripts/validate_style_3_1_asset.py",
+        "required_records": ["bundle", "run-record", "review"],
+        "review_dimensions": list(STYLE_3_1_REVIEW_DIMENSIONS),
+        "require_all_dimensions": "pass",
+        "success_status": "pass",
+        "missing_evidence_status": "pending-review",
+        "failed_review_status": "rejected",
+        "trust_boundary": "Checks record consistency only; model execution and visual judgments remain reviewer claims.",
+    }
+
+
+def style_3_1_workflow(anchor_reference: dict[str, str]) -> dict[str, object]:
+    return {
+        "final_output_stage": "style-contract-check",
+        "stages": [
+            {
+                "id": "base-generation",
+                "operation": "generate",
+                "prompt_source": "prompt",
+                "references_source": "references",
+                "output_status": "intermediate-only",
+            },
+            {
+                "id": "scribble-correction",
+                "operation": "edit",
+                "required": True,
+                "prompt": STYLE_3_1_SCRIBBLE_CORRECTION_PROMPT,
+                "references": [
+                    {
+                        "input_index": 1,
+                        "role": "edit-target",
+                        "source": "base-generation.output",
+                    },
+                    {
+                        "input_index": 2,
+                        **anchor_reference,
+                    },
+                ],
+                "must_preserve": (
+                    "characters, faces, poses, actions, composition, object count, "
+                    "outlines, colors, white background, and framing"
+                ),
+                "output_status": "intermediate-only",
+            },
+            {
+                "id": "scribble-chaos-correction",
+                "operation": "edit",
+                "required": True,
+                "output_status": "final-candidate",
+                "prompt": STYLE_3_1_SCRIBBLE_CHAOS_PROMPT,
+                "references": [
+                    {
+                        "input_index": 1,
+                        "role": "edit-target",
+                        "source": "scribble-correction.output",
+                    },
+                    {
+                        "input_index": 2,
+                        **anchor_reference,
+                    },
+                ],
+                "must_preserve": (
+                    "characters, faces, expressions, poses, gestures, composition, "
+                    "object count, black outlines, existing color choices, white "
+                    "background, and framing"
+                ),
+            },
+            {
+                "id": "style-contract-check",
+                "operation": "validate",
+                "required": True,
+                "candidate_source": "scribble-chaos-correction.output",
+                "validator": "scripts/validate_style_3_1_asset.py",
+                "success_output_status": "final",
+                "non_pass_output_status": "final-candidate",
+            },
+        ],
+    }
+
+
 def build_payload(
     style_id: str,
     prompt: str,
@@ -561,7 +771,7 @@ def build_payload(
         anchor_reference = hosted_image_reference("assets/style-3.1/anchor-family.png")
         anchor = Path(anchor_reference["path"])
         validate_style_3_1_anchor(anchor)
-        payload["style_contract"] = "family-crayon-card-v3"
+        payload["style_contract"] = "family-crayon-card-v4"
         references: list[dict[str, str]] = [
             {
                 **anchor_reference,
@@ -580,63 +790,8 @@ def build_payload(
             for path in character_references
         )
         payload["references"] = references
-        payload["workflow"] = {
-            "final_output_stage": "scribble-chaos-correction",
-            "stages": [
-                {
-                    "id": "base-generation",
-                    "operation": "generate",
-                    "prompt_source": "prompt",
-                    "references_source": "references",
-                    "output_status": "intermediate-only",
-                },
-                {
-                    "id": "scribble-correction",
-                    "operation": "edit",
-                    "required": True,
-                    "prompt": STYLE_3_1_SCRIBBLE_CORRECTION_PROMPT,
-                    "references": [
-                        {
-                            "input_index": 1,
-                            "role": "edit-target",
-                            "source": "base-generation.output",
-                        },
-                        {
-                            "input_index": 2,
-                            **anchor_reference,
-                        },
-                    ],
-                    "must_preserve": (
-                        "characters, faces, poses, actions, composition, object count, "
-                        "outlines, colors, white background, and framing"
-                    ),
-                    "output_status": "intermediate-only",
-                },
-                {
-                    "id": "scribble-chaos-correction",
-                    "operation": "edit",
-                    "required": True,
-                    "output_status": "final",
-                    "prompt": STYLE_3_1_SCRIBBLE_CHAOS_PROMPT,
-                    "references": [
-                        {
-                            "input_index": 1,
-                            "role": "edit-target",
-                            "source": "scribble-correction.output",
-                        },
-                        {
-                            "input_index": 2,
-                            **anchor_reference,
-                        },
-                    ],
-                    "must_preserve": (
-                        "characters, faces, expressions, poses, gestures, composition, "
-                        "object count, black outlines, existing color choices, white "
-                        "background, and framing"
-                    ),
-                },
-            ],
-        }
+        payload["workflow"] = style_3_1_workflow(anchor_reference)
+        payload["acceptance_contract"] = style_3_1_acceptance_contract()
     elif style_id == "19":
         anchor_reference = hosted_image_reference("assets/style-19/anchor-roundhead-redline.png")
         anchor = Path(anchor_reference["path"])
@@ -822,6 +977,7 @@ def main() -> int:
     )
     parser.add_argument("--style", help="画风编号、中文名称或已登记别名")
     parser.add_argument("--list", action="store_true", help="输出全部画风、别名、参数和参考图的 JSON 菜单")
+    parser.add_argument("--catalog", action="store_true", help="只读查询全部画风及有来源的选型说明；须单独使用，不下载图片")
     parser.add_argument("--subject", help="填入【主体】")
     parser.add_argument("--text", help="填入【文字】")
     parser.add_argument("--title", help="风格 3.1 的准确标题原文;渲染器负责生成固定文字指令")
@@ -853,6 +1009,15 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    if args.catalog:
+        if any(argument != "--catalog" for argument in sys.argv[1:]):
+            parser.error("--catalog 必须单独使用，不能与 --list 或生成参数混用")
+        try:
+            print(json.dumps(list_styles_with_guidance(), ensure_ascii=False, indent=2))
+        except (OSError, ValueError) as error:
+            print(f"render_prompt: {error}", file=sys.stderr)
+            return 2
+        return 0
     if args.list:
         try:
             print(json.dumps(list_styles(), ensure_ascii=False, indent=2))
@@ -861,7 +1026,7 @@ def main() -> int:
             return 2
         return 0
     if args.style is None:
-        parser.error("必须提供 --style 或 --list")
+        parser.error("必须提供 --style、--list 或 --catalog")
 
     try:
         style_id = canonical_style_id(args.style)
