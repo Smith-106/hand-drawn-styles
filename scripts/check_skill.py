@@ -24,7 +24,7 @@ RUNTIME_FILES = (
     "scripts/validate_style_20_asset.py", "scripts/validate_style_3_1_asset.py",
     "docs/style-3.1-review.md", "docs/style-selection.md", "docs/style-comparison.md", "catalog/style-guidance.json",
     "scripts/hosted_images.py", "assets/image-manifest.json", "docs/image-hosting.md",
-    "docs/image-art-direction.md", "docs/style-22-review.md",
+    "docs/image-art-direction.md", "docs/style-22-review.md", "docs/style-23-review.md",
 )
 DEFAULT_SCENE = (
     "SCENE: background painted with long rough vertical and diagonal dry-brush streaks "
@@ -55,6 +55,7 @@ SMOKE_PARAMETERS = {
     "19": {"主体": "a small elephant lifting one paper lantern with its trunk", "文字": "No text anywhere."},
     "20": {"主体": "a grandmother and child repairing one kite together", "文字": "No text anywhere."},
     "22": {"主体": "一只猫站在自行车旁边", "文字": "不加任何文字"},
+    "23": {"主体": "一只白鹤抬起一只脚，展开一侧翅膀"},
 }
 
 

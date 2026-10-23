@@ -2640,6 +2640,121 @@
           ]
         }
       ]
+    },
+    "23": {
+      "suitable_for": [
+        {
+          "task": "把主题或参考内容概括为独立皮影彩染作品",
+          "basis": "editorial-suggestion",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:23",
+              "availability": "runtime"
+            }
+          ]
+        },
+        {
+          "task": "以大量留白与暖光呈现单一主体动作",
+          "basis": "editorial-suggestion",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:23",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "selection_cues": [
+        {
+          "description": "平面铆接偶片、结构性镂刻、少量操纵竹签、半透明彩染与整幅暖幕光。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:23",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "recipe-constraint",
+          "description": "成图不显示原片或上下对照，不强加人脸与人类四肢；竹签与少量偶件须有结构连接。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:23",
+              "availability": "runtime"
+            }
+          ]
+        },
+        {
+          "kind": "selection-advice",
+          "description": "v0.1已获用户确认入库；复杂群像与全景可能弱化一幕一偶，尚未证明任意主题或一次生成稳定。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:23",
+              "availability": "runtime"
+            },
+            {
+              "document": "docs/style-23-review.md",
+              "section": "document",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "related_styles": [
+        {
+          "style_id": "13",
+          "difference": "23是透光平面偶片、铆钉关节与暖幕投影；13是立体厚纸层叠和纸雕投影。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:23",
+              "availability": "runtime"
+            },
+            {
+              "document": "STYLES.md",
+              "section": "style:13",
+              "availability": "runtime"
+            }
+          ]
+        },
+        {
+          "style_id": "8",
+          "difference": "23由镂刻彩染和幕光组织形体；8由毛笔浓淡、飞白与宣纸渗化组织形体。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:23",
+              "availability": "runtime"
+            },
+            {
+              "document": "STYLES.md",
+              "section": "style:8",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "user-approved",
+          "scope": "人物、白鹤、茶壶、楼阁四类3:4试作；人物与楼阁一次生成，白鹤与茶壶各增加一次配景清除编辑。",
+          "conclusion": "用户确认本轮风格入库并要求署名DAAI(@daaihq)。仅覆盖本轮四类候选与风格方向；白鹤与茶壶各经过一次修正，不证明一次生成或任意主题稳定。",
+          "sources": [
+            {
+              "document": "docs/style-23-review.md",
+              "section": "document",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ]
     }
   }
 }

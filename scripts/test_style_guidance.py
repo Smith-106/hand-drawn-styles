@@ -34,7 +34,7 @@ class StyleGuidanceTests(unittest.TestCase):
 
     def test_complete_catalog_preserves_legacy_fields_and_order(self) -> None:
         catalog = render_prompt.list_styles_with_guidance()
-        self.assertEqual(len(catalog), 22)
+        self.assertEqual(len(catalog), 23)
         self.assertEqual([{key: value for key, value in style.items() if key != "guidance"} for style in catalog],
                          render_prompt.list_styles())
         self.assertEqual({style["style_id"] for style in catalog}, set(self.load_payload()))
@@ -136,7 +136,7 @@ class StyleGuidanceTests(unittest.TestCase):
                                    env={**os.environ, "HAND_DRAWN_IMAGE_CACHE": str(cache), "HAND_DRAWN_OFFLINE": "1"},
                                    cwd=self.workspace.name, capture_output=True, text=True)
         self.assertEqual(completed.returncode, 0, completed.stderr)
-        self.assertEqual(len(json.loads(completed.stdout)), 22)
+        self.assertEqual(len(json.loads(completed.stdout)), 23)
         self.assertFalse(cache.exists())
 
     def test_catalog_rejects_list_and_generation_arguments(self) -> None:

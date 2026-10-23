@@ -60,7 +60,7 @@ class InstallationTests(unittest.TestCase):
     def test_installed_archive_exercises_all_styles_outside_checkout(self) -> None:
         report = build_skill_package.verify_archive(self.archive)
         self.assertEqual(report["status"], "pass")
-        self.assertEqual(report["smoke_checked"], 22)
+        self.assertEqual(report["smoke_checked"], 23)
         self.assertTrue(all(style["status"] == "pass" for style in report["styles"]))
 
     def test_installed_style_3_1_validator_help_is_available(self) -> None:
@@ -96,7 +96,7 @@ class InstallationTests(unittest.TestCase):
             self.assertEqual(catalog.returncode, 0, catalog.stderr)
             self.assertEqual(legacy.returncode, 0, legacy.stderr)
             self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
-            self.assertEqual(len(json.loads(catalog.stdout)), 22)
+            self.assertEqual(len(json.loads(catalog.stdout)), 23)
             self.assertEqual([{key: value for key, value in style.items() if key != "guidance"}
                               for style in json.loads(catalog.stdout)], json.loads(legacy.stdout))
             self.assertFalse((root / "benchmarks").exists())

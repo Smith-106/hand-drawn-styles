@@ -1,6 +1,6 @@
 ---
 name: hand-drawn
-description: Use when users ask for a hand-drawn or illustrated image prompt, name one of the repository's 21 numbered styles or the 3.1 stable variant, or mention triggers such as 亲子手绘、家庭蜡笔画、蜡笔、吉卜力、水墨、像素、淡彩速写、动画概念、水粉、北欧绘本、纸雕、软胶潮玩、墨线绘本、暖色扁平绘本、圆头红线、暖黄墨线、family-crayon-card、warm-flat-storybook、roundhead-redline、warm-yellow-ink-story、朱墨写意、朱墨水墨漫画、vermilion-ink-wash、ink-comic-transfer. Produces prompt text or a formal reference-bearing call bundle and does not generate images.
+description: Use when users ask for a hand-drawn or illustrated image prompt, name one of the repository's 22 numbered styles or the 3.1 stable variant, or mention triggers such as 亲子手绘、家庭蜡笔画、蜡笔、吉卜力、水墨、像素、淡彩速写、动画概念、水粉、北欧绘本、纸雕、软胶潮玩、墨线绘本、暖色扁平绘本、圆头红线、暖黄墨线、family-crayon-card、warm-flat-storybook、roundhead-redline、warm-yellow-ink-story、朱墨写意、朱墨水墨漫画、vermilion-ink-wash、ink-comic-transfer、皮影、皮影彩染、shadow-puppet、backlit-puppet. Produces prompt text or a formal reference-bearing call bundle and does not generate images.
 ---
 
 # 手绘风格 prompt 生成器
@@ -14,7 +14,8 @@ description: Use when users ask for a hand-drawn or illustrated image prompt, na
 5. 风格 19 正式生产必须使用正式 JSON 调用包:每张携带原创锚点,锁定模型快照和高保真参考图输入,基础图只标为 `candidate-only`,通过 `acceptance_contract` 后才能标为 final;任一条件不可用时停止正式生产。
 6. 风格 20 正式生产必须使用正式 JSON 调用包:使用固定原创锚点生成 `final-candidate`,再运行机读验收器;失败候选整张拒收并重新生成,禁止用通用画风迁移编辑修补。
 7. 风格22为用户认可的 v1.1.0 朱墨写意转绘：先完整执行包内 [sweety-image-art-direction](docs/image-art-direction.md) 预处理；默认输出带画风锚点与可选 `--source-image` 内容原图的 JSON。保持“原图管内容、锚点管画法”，不得复制锚点中的人物、自行车或10号。来源、隐私与图片发布状态见 [迁入记录](docs/style-22-review.md)。
-8. 其他画风默认只输出最终 prompt;风格 3.1/19/20/22 的纯文本只允许显式 `--text-only-preview`。不生图;仓库维护者新增或验收画风时,按 `AGENTS.md` 的维护者验证例外执行。
+8. 风格23为皮影彩染v0.1首版：先按 [内置美术指导](docs/image-art-direction.md) 分析轮廓、连接与幕光，输出独立全幅皮影提示词；不要求原片、不附原片、不做上下对照。状态与验证见 [23号记录](docs/style-23-review.md)。
+9. 其他画风默认只输出最终 prompt;风格 3.1/19/20/22 的纯文本只允许显式 `--text-only-preview`。不生图;仓库维护者新增或验收画风时,按 `AGENTS.md` 的维护者验证例外执行。
 
 安装方法见 [INSTALL.md](INSTALL.md)。安装后先运行 `python3 -B scripts/check_skill.py` 汇总检查文件、参考图、别名和全部画风调用；检查不生图。使用 `python3 -B scripts/render_prompt.py --list` 取得原菜单与参数；用独立的 `--catalog` 查询有来源的选型说明，无需图片缓存。未指定画风时按协议提供有依据的 2–3 项候选或完整菜单，等待用户选择；显式指定优先。详见 [选型与证据范围](docs/style-selection.md)，保持整个安装包的目录结构。
 

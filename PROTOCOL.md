@@ -9,9 +9,9 @@
 ### 1. 确定画风
 
 - **用户已显式指定** → 直接采用。识别方式三选一(任一命中即可):
-  - 中文名:极简线条 / 火柴人 / 蜡笔 / 童涂 / 吉卜力 / 蜡笔童涂潦草版 / 潦草自画版 / 亲子投稿蜡笔故事卡 / 家庭投稿蜡笔卡 / 小豆人 / MS Paint / 烂涂鸦 / 圆珠笔 / 单线涂鸦 / 蜡笔实拍 / 真蜡笔 / 水墨 / 写意 / 国画 / 像素 / 像素风 / 情绪叙事 / 淡彩速写 / 速写讲故事 / 二维水彩风格 / 二维水彩 / 复古动画 / 概念稿 / 概念设定 / 暖光童画 / 动画概念暖绘 / 北欧纸雕 / 纸雕 / 纸艺 / 衍纸 / 北欧绘本水粉 / 北欧绘本 / 绘本水粉 / 斯堪的纳维亚绘本 / 大鼻软偶 / 软偶 / 软胶潮玩 / 大鼻子潮玩 / 聚光水粉立绘 / 聚光立绘 / 水粉立绘 / 墨线绘本 / 墨线淡彩 / 线稿绘本 / 速写绘本 / 暖色扁平绘本 / 扁平暖色绘本 / 几何扁平绘本 / 圆头红线 / 圆头红线极简童画 / 黑红白圆头童画 / 暖黄墨线 / 暖黄墨线情绪小剧场
-  - 编号:1–20、22,另有稳定变体 3.1(蜡笔童涂-潦草自画版)。旧编号 1.1、1.2 和21（独白风格）已删除；新增朱墨风格使用22，不复用旧21或其别名。
-  - 英文别名:`xkcd` `stickman` `minimal-line`(1) / `crayon` `kid-crayon`(2) / `ghibli`(3) / `rawkid` `kid-scrawl` `stick-kid` `family-crayon-card` `parent-child-crayon` `submission-crayon`(3.1) / `bean` `blob`(4) / `ms-paint` `bad-doodle` `ugly`(5) / `scribble` `pen-scribble` `ballpoint`(6) / `real-crayon` `crayon-photo`(7) / `ink-wash` `ink` `shuimo` `chinese-painting`(8) / `pixel` `pixel-art` `8-bit` `16-bit`(9) / `emo-sketch` `story-sketch` `watercolor-sketch` `light-watercolor`(10) / `retro-concept` `mid-century` `gouache-concept`(11) / `sunlit-storybook` `vis-dev` `storybook-visdev`(12) / `paper-folk` `papercraft` `nordic-papercraft` `paper-sculpture` `quilling`(13) / `nordic-storybook` `scandi-gouache` `scandinavian-storybook` `soft-gouache`(14) / `softnose` `softnose-vinyl` `bignose-toy` `vinyl-toy` `art-toy`(15) / `gouache-spotlight` `spotlight-gouache` `character-spotlight`(16) / `inked-storybook` `ink-storybook` `sketch-storybook` `storybook-ink`(17) / `warm-flat-storybook` `flat-storybook` `geometric-storybook` `warm-flat`(18) / `roundhead-redline` `redline-roundhead` `graphite-redline`(19) / `warm-yellow-ink-story` `yellow-ink-story` `mustard-ink-story`(20) / `vermilion-ink-wash` `ink-comic-transfer`(22)
+  - 中文名:极简线条 / 火柴人 / 蜡笔 / 童涂 / 吉卜力 / 蜡笔童涂潦草版 / 潦草自画版 / 亲子投稿蜡笔故事卡 / 家庭投稿蜡笔卡 / 小豆人 / MS Paint / 烂涂鸦 / 圆珠笔 / 单线涂鸦 / 蜡笔实拍 / 真蜡笔 / 水墨 / 写意 / 国画 / 像素 / 像素风 / 情绪叙事 / 淡彩速写 / 速写讲故事 / 二维水彩风格 / 二维水彩 / 复古动画 / 概念稿 / 概念设定 / 暖光童画 / 动画概念暖绘 / 北欧纸雕 / 纸雕 / 纸艺 / 衍纸 / 北欧绘本水粉 / 北欧绘本 / 绘本水粉 / 斯堪的纳维亚绘本 / 大鼻软偶 / 软偶 / 软胶潮玩 / 大鼻子潮玩 / 聚光水粉立绘 / 聚光立绘 / 水粉立绘 / 墨线绘本 / 墨线淡彩 / 线稿绘本 / 速写绘本 / 暖色扁平绘本 / 扁平暖色绘本 / 几何扁平绘本 / 圆头红线 / 圆头红线极简童画 / 黑红白圆头童画 / 暖黄墨线 / 暖黄墨线情绪小剧场 / 朱墨写意 / 皮影 / 皮影彩染
+  - 编号:1–20、22、23,另有稳定变体 3.1(蜡笔童涂-潦草自画版)。旧编号 1.1、1.2 和21（独白风格）已删除；新增朱墨风格使用22，不复用旧21或其别名。
+  - 英文别名:`xkcd` `stickman` `minimal-line`(1) / `crayon` `kid-crayon`(2) / `ghibli`(3) / `rawkid` `kid-scrawl` `stick-kid` `family-crayon-card` `parent-child-crayon` `submission-crayon`(3.1) / `bean` `blob`(4) / `ms-paint` `bad-doodle` `ugly`(5) / `scribble` `pen-scribble` `ballpoint`(6) / `real-crayon` `crayon-photo`(7) / `ink-wash` `ink` `shuimo` `chinese-painting`(8) / `pixel` `pixel-art` `8-bit` `16-bit`(9) / `emo-sketch` `story-sketch` `watercolor-sketch` `light-watercolor`(10) / `retro-concept` `mid-century` `gouache-concept`(11) / `sunlit-storybook` `vis-dev` `storybook-visdev`(12) / `paper-folk` `papercraft` `nordic-papercraft` `paper-sculpture` `quilling`(13) / `nordic-storybook` `scandi-gouache` `scandinavian-storybook` `soft-gouache`(14) / `softnose` `softnose-vinyl` `bignose-toy` `vinyl-toy` `art-toy`(15) / `gouache-spotlight` `spotlight-gouache` `character-spotlight`(16) / `inked-storybook` `ink-storybook` `sketch-storybook` `storybook-ink`(17) / `warm-flat-storybook` `flat-storybook` `geometric-storybook` `warm-flat`(18) / `roundhead-redline` `redline-roundhead` `graphite-redline`(19) / `warm-yellow-ink-story` `yellow-ink-story` `mustard-ink-story`(20) / `vermilion-ink-wash` `ink-comic-transfer`(22) / `shadow-puppet` `backlit-puppet`(23)
   - 注意 `涂鸦/doodle` 本身有歧义(#4 小豆人、#5 MS Paint、#6 圆珠笔都沾涂鸦):用户只说"涂鸦/画烂点"而不指明时,按未指定处理，依据用途缩小候选或展示完整菜单，等待选择。
   - 用户说“亲子手绘”“家庭蜡笔画”“亲子蜡笔故事”“像一家人站在白纸上的蜡笔画”或“潦草自画版”时,直接采用 3.1;这些表达不再进入通用画风菜单。只有单独说“手绘风”且没有亲子、家庭或蜡笔语义时,才按未指定处理。
 - **用户未指定** → 先读取 [有来源的选型说明](docs/style-selection.md)（或运行 `python3 -B scripts/render_prompt.py --catalog`）。用途与视觉意图足够明确时，提供 2–3 个候选，各写匹配理由和重要限制，保留完整菜单入口，**停下等用户选**。不能编造匹配分数，也不能把选型建议当成新配方指令。若依据不足以缩小候选，展示下面的完整菜单并等待选择；显式指定及上述直接映射始终优先。
@@ -42,8 +42,10 @@
   19. 圆头红线极简童画 —— 大圆头双竖眼+极细石墨四肢+黑红白限色+大留白,正式生产强制原创锚点与拒收检查
   20. 暖黄墨线情绪小剧场 —— 暖白纸+干性黑墨排线+芥末黄+淡腮红,用紧凑人物和单一接触动作讲关系;正式生产强制原创锚点与失败关闭验收
   22. 朱墨写意转绘 —— 游丝线、大墨团、纸白漫画五官与少量朱红；默认带锚点、可选内容原图和必经美术指导预处理
+  23. 皮影彩染 —— 平面铆接、结构镂刻、半透明彩染和整幅暖幕；试作v0.1，不显示原片
   ```
-  > 编号按 1、2、3、3.1、4…20、22 顺序展示。
+
+  > 编号按 1、2、3、3.1、4…20、22、23 顺序展示。
 
 ### 2. 取配方
 
@@ -133,3 +135,7 @@
 ## 安装检查
 
 安装整个轻量包，保留协议、配方、运行脚本和全部实际依赖的参考图。运行 `python3 -B scripts/check_skill.py` 汇总检查结果，再处理已授权范围内的修复。检查不调用图像模型，也不证明成图视觉效果通过。安装方法见 [INSTALL.md](INSTALL.md)。
+
+## 皮影彩染试作（23）
+
+23号是独立完整作品，普通模式直接从主题构造皮影，无需固定锚点或照片。按包内美术指导预处理后，用 `--subject` 提供主体；可用 `--var 配色=...`、`--text` 和 `--aspect` 覆盖内容默认值。内部可分析参考材料，但输出画面不得包含原片或上下拼接。非生命题材转为形偶或景偶，不强加人脸与四肢。当前无公开展示锚点，不能把试作或工程检查当成用户认可，见 [试作记录](docs/style-23-review.md)。

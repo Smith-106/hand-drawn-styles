@@ -1,6 +1,6 @@
 # hand-drawn-styles
 
-**22 套手绘与插画画风配方，先看效果，再按编号使用。** 覆盖蜡笔、水墨、线条漫画、水粉绘本、纸雕、像素与软胶潮玩。
+**23 套手绘与插画画风配方，先看效果，再按编号使用。** 覆盖蜡笔、水墨、线条漫画、水粉绘本、纸雕、像素与软胶潮玩。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -10,7 +10,7 @@
 
 ## 全部画风
 
-当前共 **22 套**：编号 **1–20、22**，另含 **3.1** 变体。21 号已移除，不复用旧编号。点击样图可查看原图；详细输入示例见 [样例页](examples/README.md)，用途与相近画风区别见 [选型说明](docs/style-selection.md)。
+当前共 **23 套**：编号 **1–20、22、23**，另含 **3.1** 变体。21 号已移除，不复用旧编号。点击样图可查看原图；详细输入示例见 [样例页](examples/README.md)，用途与相近画风区别见 [选型说明](docs/style-selection.md)。
 
 <table>
 <tr>
@@ -132,17 +132,24 @@
 <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png" alt="22 朱墨写意转绘" width="150"></a><br>
 <sub>纸白漫画五官、游丝长线、完整墨团与少量朱红。<br><code>vermilion-ink-wash</code></sub>
 </td>
-<td width="20%"></td>
+<td width="20%" align="center" valign="top">
+<strong>23 · 皮影彩染</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/23-shadow-puppet.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/23-shadow-puppet.png" alt="23 皮影彩染：持扇女伶" width="150"></a><br>
+<sub>灵感来自：DAAI(@daaihq)</sub><br>
+<sub>镂刻偶片、平面铆接、半透明彩染与整幅暖幕光。<br><code>shadow-puppet</code><br><a href="docs/style-23-review.md">试作记录</a></sub>
+</td>
 <td width="20%"></td>
 <td width="20%"></td>
 </tr>
 </table>
 
+23号采用本轮已认可的持扇女伶图展示；全部23套画风均保留独立效果图。
+
 样图题材不同，用于展示已有画风，不代表同题对照实验或所有场景都已验证。3.1、19、20、22 展示的是正式调用所用画风锚点；审核与隐私记录见 [样例页](examples/README.md) 和各画风说明。
 
 ## 安装
 
-使用本页全部 22 套画风（含 22 号朱墨写意转绘），可让 Agent 从当前源码安装：
+使用本页全部 23 套画风（含 22 号朱墨写意转绘与 23 号皮影彩染试作），可让 Agent 从当前源码安装：
 
 ```text
 帮我安装 https://github.com/threerocks/hand-drawn-styles 的 main 分支，
@@ -211,6 +218,17 @@ python3 -B scripts/render_prompt.py \
 
 22 号采用用户认可的 `sweety-ink-wash v1.1.0` 第一风格，与 8 号传统水墨分开保留。默认返回画风锚点、内容原图和完整 [sweety-image-art-direction 预处理说明](docs/image-art-direction.md)。调用端先执行预处理，再把实际图片按角色传入图像工具：**原图决定内容，锚点决定画法**，不复制锚点中的人物、自行车或号码。选择范围与既有验证见 [迁入记录](docs/style-22-review.md)。
 
+### 用 23 号创作独立皮影
+
+灵感来自：DAAI(@daaihq)
+
+```bash
+python3 -B scripts/render_prompt.py --style shadow-puppet \
+  --subject '一只白鹤抬起一只脚，展开一侧翅膀' --aspect 3:4
+```
+
+23号为 v0.1 首版，无需原片，输出完整皮影画面而非照片对照海报。内部保留轮廓提炼、偶件拆分与颜色选择，成图只呈现半透明彩染偶片和暖幕。默认无字；配色可用 `--var '配色=琥珀黄与橄榄绿'` 指定。来源与试作边界见 [23号记录](docs/style-23-review.md)。
+
 ## 调用与参考图要求
 
 普通画风默认输出纯文本；**3.1、19、20、22 默认输出 JSON 调用包**。拿到 JSON 只是完成提示词准备，调用端还须实际传入图片并执行相应流程。
@@ -232,7 +250,7 @@ python3 -B scripts/render_prompt.py \
 
 3.1、19、20 的候选状态、精确模型要求与放行条件以正式调用包为准。缺参考图、模型能力或审核证据时，停止对应正式调用。3.1/19/20/22 只有显式添加 `--format text --text-only-preview` 才能输出非生产文字预览。
 
-图片托管于 **Cloudflare Pages**。首次使用参考图需要联网下载并校验大小和 SHA-256；有效缓存可离线复用。2026-10-23，图库全部 76 张图片已通过匿名下载校验，运行所需 6 张参考图已通过空缓存下载验证。图片迁移不改变历史隐私审计与视觉审核结论。
+图片托管于 **Cloudflare Pages**。首次使用参考图需要联网下载并校验大小和 SHA-256；有效缓存可离线复用。2026-10-23，图库全部 77 张图片已通过匿名下载校验，运行所需 6 张参考图已通过空缓存下载验证。图片迁移不改变历史隐私审计与视觉审核结论。
 
 工程检查、实际看图审核和用户认可分别记录。历史样图的证据范围、三组相近画风的差异与失败案例见 [画风对照](docs/style-comparison.md)；其中规划的小规模同题实验尚未执行。
 

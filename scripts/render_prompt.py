@@ -130,6 +130,10 @@ STYLE_ALIASES = {
     "暖黄墨线情绪小剧场": "20",
     "vermilion-ink-wash": "22",
     "ink-comic-transfer": "22",
+    "shadow-puppet": "23",
+    "backlit-puppet": "23",
+    "皮影": "23",
+    "皮影彩染": "23",
     "朱墨写意": "22",
     "朱墨水墨漫画": "22",
 }
@@ -1118,6 +1122,9 @@ def main() -> int:
             validate_style_20_text(values["文字"])
         elif style_id == "22":
             values.setdefault("文字", "不加任何文字")
+        elif style_id == "23":
+            values.setdefault("文字", "不加任何文字")
+            values.setdefault("配色", "按主体选择两至三种朱红、靛青、橄榄绿或琥珀黄的半透明彩染，与暖幕光统一")
         if style_id == "12":
             scene = values.get("场景", "")
             if "【背景元素】" in scene:

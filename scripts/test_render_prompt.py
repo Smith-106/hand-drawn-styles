@@ -26,7 +26,7 @@ SPEC.loader.exec_module(RENDER_PROMPT)
 
 
 class RenderPromptTests(unittest.TestCase):
-    def test_recipe_and_correction_prompts_match_approved_baseline(self) -> None:
+    def test_recipe_and_correction_prompts_match_recorded_baseline(self) -> None:
         # Contract-only changes must not silently alter visual recipes (4132988).
         expected_templates = {
             "1": "c53c58d41d8863dce16b369f71252abb332a17f8486b1152917e73e7d96c0fad",
@@ -50,7 +50,8 @@ class RenderPromptTests(unittest.TestCase):
             "18": "608695cfb9edfc296711653c9ed78246cdad3119780e64767e9a7e5c99edb232",
             "19": "8d20f8ade57c18c8d3e366fc064ffebcf81527494e520eba47b24a023b0fdd90",
             "20": "980d1e844ea8496de2f248e86b41a2c27df4776733e940d0250547a570ff6cae",
-            "22": "f6b65c6a6ada9f7372b3a65576c87299f19628d1d3560883f3049ebe18e62e4a"
+            "22": "f6b65c6a6ada9f7372b3a65576c87299f19628d1d3560883f3049ebe18e62e4a",
+            "23": "715bee1f051a584f2d01667892297b987e9056f2d6ee0f70031ed56f38b5efb8"
         }
         self.assertEqual(set(RENDER_PROMPT.load_style_sections()), set(expected_templates))
         for style_id, digest in expected_templates.items():
@@ -792,10 +793,10 @@ class RenderPromptTests(unittest.TestCase):
         result = self.run_renderer("--list")
         self.assertEqual(result.returncode, 0, result.stderr)
         catalog = json.loads(result.stdout)
-        self.assertEqual(len(catalog), 22)
+        self.assertEqual(len(catalog), 23)
         self.assertEqual(catalog[0]["parameters"], ["N", "分镜列表"])
         self.assertEqual(catalog[3]["style_id"], "3.1")
-        self.assertEqual([style["style_id"] for style in catalog][-3:], ["19", "20", "22"])
+        self.assertEqual([style["style_id"] for style in catalog][-4:], ["19", "20", "22", "23"])
         for style in catalog:
             with self.subTest(style_id=style["style_id"]):
                 self.assertEqual(RENDER_PROMPT.canonical_style_id(style["name"]), style["style_id"])
