@@ -1,163 +1,171 @@
 # hand-drawn-styles
 
-一套工具无关的手绘画风提示词配方，包含 21 种整数编号画风和 3.1 变体，共 22 套。适用于能读取自定义指令的 AI Agent。
+**22 套手绘与插画画风配方，先看效果，再按编号使用。** 覆盖蜡笔、水墨、线条漫画、水粉绘本、纸雕、像素与软胶潮玩。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## 这是什么
+告诉 Agent 要画什么、用哪种画风，它会填入内容、处理比例，输出完整提示词或带参考图的 JSON 调用包。**本项目默认不生图**，由你的图像工具执行。
 
-本项目负责选择画风、填入内容、处理比例，并输出完整 prompt 或带参考图和工作流的正式 JSON 调用包。**普通使用只输出提示词或调用包，不生图。** 图像执行由支持相应参考图和流程的调用端完成。
+[全部画风](#全部画风) · [安装](#安装) · [开始使用](#开始使用) · [调用与参考图要求](#调用与参考图要求) · [维护与贡献](#维护与贡献)
 
-配方只有 [STYLES.md](STYLES.md) 一份真源，渲染器原样提取；选型说明帮助判断用途，不覆盖配方。工程检查通过、视觉审核通过和用户认可分别记录，不能互相替代。
+## 全部画风
 
-## 内置画风
+当前共 **22 套**：编号 **1–20、22**，另含 **3.1** 变体。21 号已移除，不复用旧编号。点击样图可查看原图；详细输入示例见 [样例页](examples/README.md)，用途与相近画风区别见 [选型说明](docs/style-selection.md)。
 
-先看 [有来源的选型说明](docs/style-selection.md)，或查询全部画风：
+| 1 · 极简黑白线条讲解漫画 | 2 · 蜡笔童涂 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/01-minimal-line.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/01-minimal-line.png" alt="1 极简黑白线条讲解漫画" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/02-crayon.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/02-crayon.png" alt="2 蜡笔童涂" height="220"></a> |
+| 细线火柴人、网格分镜，用于步骤与概念讲解。<br>`minimal-line` | 孩子自己画的笨拙造型，歪线、出框和粗蜡笔。<br>`crayon` |
 
-```bash
-python3 -B scripts/render_prompt.py --catalog
-```
+| 3 · 吉卜力风 | 3.1 · 蜡笔童涂－潦草自画版 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/03-ghibli.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/03-ghibli.png" alt="3 吉卜力风" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png" alt="3.1 蜡笔童涂－潦草自画版" height="220"></a> |
+| 柔和水彩、暖光与手绘动画叙事。<br>`ghibli` | 大人歪线稿加孩子乱涂色，明亮白底与亲子动作。<br>`family-crayon-card` |
 
-结果包含适用任务、识别差异、限制、相近画风及证据范围。查询只读本地文本，无需图片缓存；必须单独使用，不能与生成参数混用。原菜单与参数查询保持不变：
+| 4 · 小豆人涂鸦信息图 | 5 · MS Paint 烂涂鸦 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/04-bean-doodle.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/04-bean-doodle.png" alt="4 小豆人涂鸦信息图" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/05-ms-paint.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/05-ms-paint.png" alt="5 MS Paint 烂涂鸦" height="220"></a> |
+| 实心黑豆人、单橙点缀与竖向分格。<br>`bean` | 鼠标硬画的粗糙数字感，故意画得笨拙好笑。<br>`ms-paint` |
 
-```bash
-python3 -B scripts/render_prompt.py --list
-```
+| 6 · 圆珠笔单线涂鸦 | 7 · 蜡笔实拍 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/06-pen-scribble.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/06-pen-scribble.png" alt="6 圆珠笔单线涂鸦" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/07-real-crayon.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/07-real-crayon.png" alt="7 蜡笔实拍" height="220"></a> |
+| 用缠绕线的疏密表现体积，适合肖像与动物。<br>`pen-scribble` | 像拍下来的儿童蜡笔纸页，保留纸面与蜡质笔触。<br>`real-crayon` |
 
-| 入口 | 解决的问题 |
-| --- | --- |
-| [选型说明](docs/style-selection.md) | 根据用途缩小候选，区分编辑建议与配方约束 |
-| [三组差异与三个失败案例](docs/style-comparison.md) | 为什么 14/18、3.1/20、19/20 不能只换颜色套用 |
-| [全部编号样例](examples/README.md) | 按编号查看既有展示和输入示例 |
-| [完整协议](PROTOCOL.md) | 明确编号、自然语言映射、参数和生产要求 |
+| 8 · 水墨写意 | 9 · 复古像素 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/08-ink-wash.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/08-ink-wash.png" alt="8 水墨写意" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/09-pixel-art.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/09-pixel-art.png" alt="9 复古像素" height="220"></a> |
+| 毛笔浓淡、飞白与宣纸渗化，保留写意留白。<br>`ink-wash` | 硬边方块像素与有限调色板，呈现老游戏观感。<br>`pixel-art` |
 
-以下复用既有展示，不是同题实验，也不表示本轮重新生图或完成视觉验收：
+| 10 · 情绪叙事淡彩速写 | 11 · 二维水彩风格 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/10-emo-sketch.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/10-emo-sketch.png" alt="10 情绪叙事淡彩速写" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/11-retro-concept.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/11-retro-concept.png" alt="11 二维水彩风格" height="220"></a> |
+| 靛蓝松散速写线、大留白与一处橙色。<br>`emo-sketch` | 复古动画概念稿，白纸、粉彩与少量形状阴影。<br>`retro-concept` |
 
-| 14 北欧绘本水粉 | 18 暖色扁平绘本 | 20 暖黄墨线 |
-| :--: | :--: | :--: |
-| <img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png" width="220"> | <img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png" width="220"> | <img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png" width="220"> |
+| 12 · 暖光童画 | 13 · 北欧纸雕 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/12-sunlit-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/12-sunlit-storybook.png" alt="12 暖光童画" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk.png" alt="13 北欧纸雕" height="220"></a> |
+| 动画概念水粉笔触，可选留白纸边或满幅场景。<br>`sunlit-storybook` | 层叠厚纸、立体纸艺和柔和投影。<br>`paper-folk` |
 
-样例页保留各编号与历史隐私状态说明。更多画风见 [全部样例](examples/README.md)；本次整理不承诺远端图片可用性已重新验证。
+| 14 · 北欧绘本水粉 | 15 · 大鼻软偶 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png" alt="14 北欧绘本水粉" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/15-softnose-vinyl.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/15-softnose-vinyl.png" alt="15 大鼻软偶" height="220"></a> |
+| 整画纸纹、水粉颗粒与低饱和蓝黄。<br>`nordic-storybook` | 哑光软胶、夸张垂管鼻与小眼睛潮玩角色。<br>`softnose-vinyl` |
 
-## 用法要点
+| 16 · 聚光水粉立绘 | 17 · 墨线绘本 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/16-gouache-spotlight.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/16-gouache-spotlight.png" alt="16 聚光水粉立绘" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/17-inked-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/17-inked-storybook.png" alt="17 墨线绘本" height="220"></a> |
+| 满幅抽象刷底、人物身后聚光晕与夸张比例。<br>`gouache-spotlight` | 钢笔墨线定形，轻薄淡彩与局部排线。<br>`inked-storybook` |
 
-### 不指定画风 → 列菜单让你选
+| 18 · 暖色扁平绘本 | 19 · 圆头红线极简童画 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png" alt="18 暖色扁平绘本" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png" alt="19 圆头红线极简童画" height="220"></a> |
+| 圆润几何色块、蓝橙对比与流畅动作弧线。<br>`warm-flat-storybook` | 大圆头、双竖眼、细石墨四肢与珊瑚红。<br>`roundhead-redline` |
 
-用途和视觉意图足够明确时，Agent 提供 2–3 个候选，说明匹配理由和重要限制，等待你选择；信息不足时展示完整菜单。不会替你选，也不会编造匹配分数。
+| 20 · 暖黄墨线情绪小剧场 | 22 · 朱墨写意转绘 |
+| :---: | :---: |
+| <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png" alt="20 暖黄墨线情绪小剧场" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png" alt="22 朱墨写意转绘" height="220"></a> |
+| 紧凑形体、黑墨排线与芥末黄，聚焦一个动作。<br>`warm-yellow-ink-story` | 纸白漫画五官、游丝长线、完整墨团与少量朱红。<br>`vermilion-ink-wash` |
 
-例如“用图解释三个工作步骤，风格没想好”可先比较 1 的细线网格与 4 的黑豆人竖向分格。完整风景与单动作白底等需求发生冲突时，先说明取舍，不静默删改配方。五个情境演练见 [选型说明](docs/style-selection.md)。
+样图题材不同，用于展示已有画风，不代表同题对照实验或所有场景都已验证。3.1、19、20、22 展示的是正式调用所用画风锚点；审核与隐私记录见 [样例页](examples/README.md) 和各画风说明。
 
-### 显式指定 → 中文名 / 编号 / 英文别名,任一即可
+## 安装
+
+使用本页全部 22 套画风（含 22 号朱墨写意转绘），可让 Agent 从当前源码安装：
 
 ```text
-用吉卜力风画一只在下雨天打伞的猫
-用 3 号画风画一只在下雨天打伞的猫
-用 ghibli 画一只在下雨天打伞的猫
+帮我安装 https://github.com/threerocks/hand-drawn-styles 的 main 分支，
+保留完整 Skill 目录，并运行 scripts/check_skill.py 验证安装。
 ```
 
-指定编号、名称、已登记别名时直接采用；“家庭蜡笔画”“亲子手绘”等已有自然语言映射直接采用 3.1，不重新要求选择。
+也可以自行浅克隆，避免下载 Git 历史中的旧图片。运行脚本需要 **Python 3.10+**，无需第三方 Python 依赖：
 
-### 出图比例(不硬锁)
+```bash
+git clone --depth 1 https://github.com/threerocks/hand-drawn-styles.git
+cd hand-drawn-styles
+python3 -B scripts/check_skill.py
+```
 
-传入比例时使用你的比例。不传时，纯风格不注入数字比例；1 和 4 只保留网格或竖向堆叠等软版式。
+| 工具 | 接入方式 |
+| --- | --- |
+| Codex | 将完整目录以 `hand-drawn/` 名称放入 `~/.codex/skills/` |
+| Claude Code | 将完整目录以 `hand-drawn/` 名称放入 `~/.claude/skills/` |
+| Cursor / Gemini CLI / Jules | 让项目规则指向完整目录中的 `AGENTS.md` 和 `PROTOCOL.md` |
+| Cline / Windsurf / Continue | 让 rules / custom instructions 指向完整目录中的协议与配方 |
+| 直接对话 | 普通文本配方可复制；需要锚点的调用须同时传入真实参考图与完整调用包 |
 
-### 占位符自动推断
+[Release 轻量安装包](https://github.com/threerocks/hand-drawn-styles/releases/latest/download/hand-drawn-skill.zip) 对应已发布版本，**可能落后于本页 main 分支**；校验文件见 [SHA256SUMS](https://github.com/threerocks/hand-drawn-styles/releases/latest/download/SHA256SUMS)。完整安装与验证方式见 [INSTALL.md](INSTALL.md)。
 
-Agent 根据内容填写主体、动作、标题词、主色调或分镜等参数，脚本用 `--var 名称=内容` 接收其余占位符。可选胡茬可用 `--var '胡茬='` 删空；用户文案中的 `【短句】` 按原文保留。所有必需参数见 `--list`，不要把新的画风规则塞进主体或文案。
+## 开始使用
 
-普通 prompt 示例：
+### 对 Agent 说清楚内容和画风
+
+中文名、编号或英文别名都可以：
+
+```text
+用吉卜力风画一只在下雨天打伞的猫。
+用 3 号画风画一只在下雨天打伞的猫。
+用 ghibli 画一只在下雨天打伞的猫。
+```
+
+“家庭蜡笔画”“亲子手绘”等已登记的自然语言表达直接采用 3.1。未指定画风时，Agent 根据用途提供 2–3 个候选供你选择；用途不清楚时展示完整菜单。指定比例就使用该比例，不指定时不额外锁定数字比例。
+
+### 用脚本输出提示词
 
 ```bash
 python3 -B scripts/render_prompt.py \
   --style ink-wash \
-  --subject '一只鸟停在细枝上'
+  --subject '一只鸟停在细枝上' \
+  --aspect 3:4
 ```
 
-### 稳定生产调用(推荐)
+其余参数用 `--var '名称=内容'` 填入；完整编号、别名和必需参数可这样查询：
 
-3.1、19、20 默认返回正式 JSON，调用端须完整消费参考图和合同：
+```bash
+python3 -B scripts/render_prompt.py --list
+python3 -B scripts/render_prompt.py --catalog
+```
+
+`--catalog` 另含适用任务、识别差异、限制与来源，仅查询本地文本，不需要图片缓存。配方的唯一真源是 [STYLES.md](STYLES.md)，渲染器原样提取；选型建议不覆盖配方。
+
+### 用 22 号转绘原图
+
+```bash
+python3 -B scripts/render_prompt.py \
+  --style vermilion-ink-wash \
+  --subject '原图人物扶着自行车，保留眼镜、姿态和车架连接' \
+  --source-image /absolute/path/source.jpg \
+  --text '只保留球衣上的10'
+```
+
+22 号采用用户认可的 `sweety-ink-wash v1.1.0` 第一风格，与 8 号传统水墨分开保留。默认返回画风锚点、内容原图和完整 [sweety-image-art-direction 预处理说明](docs/image-art-direction.md)。调用端先执行预处理，再把实际图片按角色传入图像工具：**原图决定内容，锚点决定画法**，不复制锚点中的人物、自行车或号码。选择范围与既有验证见 [迁入记录](docs/style-22-review.md)。
+
+## 调用与参考图要求
+
+普通画风默认输出纯文本；**3.1、19、20、22 默认输出 JSON 调用包**。拿到 JSON 只是完成提示词准备，调用端还须实际传入图片并执行相应流程。
 
 ```bash
 python3 -B scripts/render_prompt.py \
   --style 3.1 \
-  --subject '爸爸把零食袋放回柜子,男孩站在旁边看着' \
+  --subject '爸爸把零食袋放回柜子，男孩站在旁边看着' \
   --text '不加任何文字' \
-  --aspect 3:4 \
-  --format json
+  --aspect 3:4
 ```
 
-3.1 的无字页使用上述文字参数；标题使用独立 `--title '准确标题原文'`。v4 的记录、验收命令和迁移方式见 [3.1 验收说明](docs/style-3.1-review.md)。
-
-```bash
-python3 -B scripts/render_prompt.py \
-  --style roundhead-redline \
-  --subject 'a small elephant calf lifting one coral-red paper lantern with its trunk' \
-  --aspect 3:4 \
-  --format json
-
-python3 -B scripts/render_prompt.py \
-  --style warm-yellow-ink-story \
-  --subject 'a grandmother and child repairing one mustard-yellow kite together' \
-  --aspect 3:4 \
-  --format json
-```
-
-以上命令只渲染调用包，不执行图像模型。正式参考图首次使用需要下载并通过文件与像素校验；有效缓存可离线复用。
-
-### 22 朱墨写意转绘
-
-来自用户认可的 `sweety-ink-wash v1.1.0` 第一风格，使用纸白漫画五官、游丝长线、完整墨团与少量朱红；区别于8号传统水墨。用户指定的骑行效果图兼作画风锚点，见 [迁入记录](docs/style-22-review.md) 和 [样例页](examples/README.md#22-朱墨写意转绘)。
-
-```bash
-python3 -B scripts/render_prompt.py --style vermilion-ink-wash \
-  --subject '原图人物扶着自行车，保留眼镜、姿态和车架连接' \
-  --source-image /absolute/path/source.jpg --text '只保留球衣上的10'
-```
-
-默认输出带锚点、内容原图和完整 `sweety-image-art-direction` 预处理说明的 JSON；调用端先执行预处理，再将真实图片按角色传入图像工具。包内 [美术指导](docs/image-art-direction.md) 服从22号配方，不改变其黑白朱红与漫画式概括。仅查看文字用 `--format text --text-only-preview`。
-
-**图库已迁移到 Cloudflare Pages**：2026-10-23，全部76张图片匿名下载通过大小和 SHA-256 校验；运行所需6张参考图另经空缓存联网下载验证。有效缓存仍可离线复用，首次调用需要联网。迁移不改变历史隐私记录或视觉验收范围。
-
-## 安装 Skill
-
-[下载已发布的轻量包](https://github.com/threerocks/hand-drawn-styles/releases/latest/download/hand-drawn-skill.zip)，解压后保留 `hand-drawn/` 完整目录，并执行 `python3 -B scripts/check_skill.py`。发布包校验文件见 [SHA256SUMS](https://github.com/threerocks/hand-drawn-styles/releases/latest/download/SHA256SUMS)，详细安装方式见 [INSTALL.md](INSTALL.md)。
-
-Release 对应已发布版本；源码的新变更须本地构建，构建成功不会自动发布 Release。轻量包含全部配方、运行脚本、选型与验收说明、图片清单，不含 Git 历史、展示图库或整套研发材料。运行图片保存在独立缓存，不进入包内。
-
-## 接入各 Agent 工具
-
-| 工具 | 接入方式 |
+| 画风 | 调用要求 |
 | --- | --- |
-| Claude Code | 将完整 `hand-drawn/` 放入 `~/.claude/skills/` |
-| Codex | 将完整 `hand-drawn/` 放入 `~/.codex/skills/` |
-| Cursor / Gemini CLI / Jules | 保留完整安装目录，让项目规则指向其中的 `AGENTS.md` 和 `PROTOCOL.md` |
-| Cline / Windsurf / Continue | 将 rules / custom instructions 指向完整安装目录中的协议与配方 |
-| 直接对话 | 普通文本配方可复制；需要锚点的正式调用须保留参考图及完整调用包 |
+| 3.1 | 每张携带锚点；执行基础生成、两次递进编辑与独立验收，通过后才可成为 final。准确标题用 `--title`，详见 [验收说明](docs/style-3.1-review.md) |
+| 19 | 携带原创锚点，满足调用包中的模型快照与高保真参考要求；按既有审核和硬失败条件放行 |
+| 20 | 携带原创锚点，直接生成候选，再执行验收器；失败候选拒收，不用通用风格编辑修补 |
+| 22 | 先执行内置美术指导预处理，再传入画风锚点与可选内容原图；核对关键主体、姿态与物件连接 |
 
-从源码安装可浅克隆，避免下载 Git 历史中的旧图片：
+3.1、19、20 的候选状态、精确模型要求与放行条件以正式调用包为准。缺参考图、模型能力或审核证据时，停止对应正式调用。3.1/19/20/22 只有显式添加 `--format text --text-only-preview` 才能输出非生产文字预览。
 
-```bash
-git clone --depth 1 https://github.com/threerocks/hand-drawn-styles.git
-python3 -B hand-drawn-styles/scripts/check_skill.py
-```
+图片托管于 **Cloudflare Pages**。首次使用参考图需要联网下载并校验大小和 SHA-256；有效缓存可离线复用。2026-10-23，图库全部 76 张图片已通过匿名下载校验，运行所需 6 张参考图已通过空缓存下载验证。图片迁移不改变历史隐私审计与视觉审核结论。
 
-## 生产限制
+工程检查、实际看图审核和用户认可分别记录。历史样图的证据范围、三组相近画风的差异与失败案例见 [画风对照](docs/style-comparison.md)；其中规划的小规模同题实验尚未执行。
 
-| 画风 | 候选与放行条件 |
-| --- | --- |
-| 3.1 | `family-crayon-card-v4`：基础生成加两次递进编辑，第三次只得到 `final-candidate`；独立验收核对阶段证据和八项视觉审核，报告 pass 才可成为 final |
-| 19 | 原创锚点、模型快照与高保真参考输入；基础图为 `candidate-only`，按既有七项审核及硬失败条件放行 |
-| 20 | 原创锚点直接生成 `final-candidate`，运行既有验收器，核对像素指标、内容锁、八项评分和硬失败条件；失败候选拒收，不以通用风格编辑修补 |
-
-19 和 20 的精确模型快照与能力要求以正式调用包为准；实际通道不能满足时停止正式生产，不能从产品名称推断快照或把其他模型结果冒充正式验证。图片、流程或审核证据缺失时，不能绕过对应合同。
-
-验收脚本检查文件、记录与审核声明，不证明模型确实使用了声明的输入，也不代替实际看图。3.1 历史三阶段样图仍为内部通过、待用户复核；合同升级没有把它们改为用户认可。详细历史边界见 [失败案例](docs/style-comparison.md)。
-
-业务项目只提供内容、准确文字、比例和可选角色参考，不维护第二套线条、五官、色板或纸面规则。3.1/19/20/22 的纯文本仅允许显式 `--text-only-preview` 的非生产预览。
-
-### 维护者构建与验收
-
-Python 3.10 或更高版本即可运行，无第三方 Python 依赖。首次准备缓存需要网络；缓存已有时可跳过下载：
+## 维护与贡献
 
 ```bash
 python3 -B scripts/hosted_images.py fetch
@@ -166,39 +174,21 @@ python3 -B scripts/check_skill.py
 python3 -B scripts/build_skill_package.py
 ```
 
-构建脚本在独立目录解压并验证全部画风，成功才标为 `verified`。默认产物为 `dist/hand-drawn-skill.zip`，上限 1 MiB；`--skip-verify` 只能得到候选包。`PACKAGE-MANIFEST.json` 登记运行文件摘要，`assets/image-manifest.json` 登记图片地址、大小和 SHA-256。
+构建脚本在独立目录解压并验证全部画风，成功才标为 `verified`；默认产物 `dist/hand-drawn-skill.zip` 不含图片且不超过 1 MiB。`--skip-verify` 仅生成候选包。
 
-用 `HAND_DRAWN_IMAGE_CACHE` 指定图片缓存，`HAND_DRAWN_OFFLINE=1` 使用已校验缓存离线运行。新图片入库须依次完成隐私清理、登记、完整站点部署和匿名下载校验，见 [图片托管规则](docs/image-hosting.md)。部署和公开发布需要相应授权。
+`HAND_DRAWN_IMAGE_CACHE` 指定图片缓存；`HAND_DRAWN_OFFLINE=1` 禁止自动下载。业务项目提供内容、准确文字、比例和可选角色参考，不另写一套画风配方。
 
-[小规模同题实验](docs/style-comparison.md) 已定义 12 次候选尝试、最多 20 次图像调用的首批预算，**当前未执行**。工程检查或历史精选图不能代替该实验结果。
+新增画风须固定参考图、同构与跨主体场景，记录判定依据和可复核候选；新增图片须先完成隐私清理、登记、完整图库部署与匿名校验。完整规则见 [AGENTS.md](AGENTS.md) 和 [图片托管说明](docs/image-hosting.md)。
 
-## 设计原则
-
-- 配方从唯一真源原样渲染，选型说明不变成新的生成规则。
-- 保留各画风的材料、形体、色板和版式差异；1/4 的多格版式与 19/20 的单动作表达不混用。
-- 样例登记、内部审核、用户认可分别记载；没有可靠记录就写明。
-- 保留历史来源与编号迁移说明，不用目录名猜当前画风身份。
-
-## 目录结构
-
-```text
-hand-drawn-styles/
-├── PROTOCOL.md        # 选择、参数与输出协议
-├── STYLES.md          # 22 套配方的唯一真源
-├── SKILL.md           # Skill 入口
-├── AGENTS.md          # 跨工具入口
-├── INSTALL.md         # 安装与检查说明
-├── catalog/           # 有来源的选型数据
-├── assets/            # 图片清单与既有隐私审计
-├── docs/              # 选型、对照、验收与托管说明
-├── scripts/           # 渲染、验收、安装、打包与测试
-├── examples/          # 全部编号样例，不进入轻量包
-└── benchmarks/        # 历史研发记录，不进入轻量包
-```
-
-## 贡献新画风
-
-按 [AGENTS.md](AGENTS.md) 的维护者验证规则准备固定参考、同构与跨主体场景、判定依据和可复核候选。新增或删除画风须同步配方、选型数据与安装检查；新增图片还须遵循托管规则。不要只凭单张满意图宣称画风已稳定。
+| 文件 / 目录 | 内容 |
+| --- | --- |
+| [STYLES.md](STYLES.md) | 全部配方的唯一真源 |
+| [PROTOCOL.md](PROTOCOL.md) | 选型、参数与输出协议 |
+| [SKILL.md](SKILL.md) / [AGENTS.md](AGENTS.md) | Skill 与跨工具入口 |
+| [catalog/](catalog/) / [docs/](docs/) | 选型数据、对照、验收与托管说明 |
+| [scripts/](scripts/) | 渲染、验收、安装、打包与检查 |
+| [assets/image-manifest.json](assets/image-manifest.json) | 图片地址、大小和 SHA-256 |
+| [examples/](examples/) / [benchmarks/](benchmarks/) | 编号样例与历史研发记录，不进入轻量包 |
 
 ## License
 
