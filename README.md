@@ -12,60 +12,131 @@
 
 当前共 **22 套**：编号 **1–20、22**，另含 **3.1** 变体。21 号已移除，不复用旧编号。点击样图可查看原图；详细输入示例见 [样例页](examples/README.md)，用途与相近画风区别见 [选型说明](docs/style-selection.md)。
 
-| 1 · 极简黑白线条讲解漫画 | 2 · 蜡笔童涂 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/01-minimal-line.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/01-minimal-line.png" alt="1 极简黑白线条讲解漫画" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/02-crayon.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/02-crayon.png" alt="2 蜡笔童涂" height="220"></a> |
-| 细线火柴人、网格分镜，用于步骤与概念讲解。<br>`minimal-line` | 孩子自己画的笨拙造型，歪线、出框和粗蜡笔。<br>`crayon` |
-
-| 3 · 吉卜力风 | 3.1 · 蜡笔童涂－潦草自画版 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/03-ghibli.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/03-ghibli.png" alt="3 吉卜力风" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png" alt="3.1 蜡笔童涂－潦草自画版" height="220"></a> |
-| 柔和水彩、暖光与手绘动画叙事。<br>`ghibli` | 大人歪线稿加孩子乱涂色，明亮白底与亲子动作。<br>`family-crayon-card` |
-
-| 4 · 小豆人涂鸦信息图 | 5 · MS Paint 烂涂鸦 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/04-bean-doodle.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/04-bean-doodle.png" alt="4 小豆人涂鸦信息图" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/05-ms-paint.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/05-ms-paint.png" alt="5 MS Paint 烂涂鸦" height="220"></a> |
-| 实心黑豆人、单橙点缀与竖向分格。<br>`bean` | 鼠标硬画的粗糙数字感，故意画得笨拙好笑。<br>`ms-paint` |
-
-| 6 · 圆珠笔单线涂鸦 | 7 · 蜡笔实拍 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/06-pen-scribble.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/06-pen-scribble.png" alt="6 圆珠笔单线涂鸦" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/07-real-crayon.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/07-real-crayon.png" alt="7 蜡笔实拍" height="220"></a> |
-| 用缠绕线的疏密表现体积，适合肖像与动物。<br>`pen-scribble` | 像拍下来的儿童蜡笔纸页，保留纸面与蜡质笔触。<br>`real-crayon` |
-
-| 8 · 水墨写意 | 9 · 复古像素 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/08-ink-wash.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/08-ink-wash.png" alt="8 水墨写意" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/09-pixel-art.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/09-pixel-art.png" alt="9 复古像素" height="220"></a> |
-| 毛笔浓淡、飞白与宣纸渗化，保留写意留白。<br>`ink-wash` | 硬边方块像素与有限调色板，呈现老游戏观感。<br>`pixel-art` |
-
-| 10 · 情绪叙事淡彩速写 | 11 · 二维水彩风格 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/10-emo-sketch.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/10-emo-sketch.png" alt="10 情绪叙事淡彩速写" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/11-retro-concept.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/11-retro-concept.png" alt="11 二维水彩风格" height="220"></a> |
-| 靛蓝松散速写线、大留白与一处橙色。<br>`emo-sketch` | 复古动画概念稿，白纸、粉彩与少量形状阴影。<br>`retro-concept` |
-
-| 12 · 暖光童画 | 13 · 北欧纸雕 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/12-sunlit-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/12-sunlit-storybook.png" alt="12 暖光童画" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk.png" alt="13 北欧纸雕" height="220"></a> |
-| 动画概念水粉笔触，可选留白纸边或满幅场景。<br>`sunlit-storybook` | 层叠厚纸、立体纸艺和柔和投影。<br>`paper-folk` |
-
-| 14 · 北欧绘本水粉 | 15 · 大鼻软偶 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png" alt="14 北欧绘本水粉" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/15-softnose-vinyl.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/15-softnose-vinyl.png" alt="15 大鼻软偶" height="220"></a> |
-| 整画纸纹、水粉颗粒与低饱和蓝黄。<br>`nordic-storybook` | 哑光软胶、夸张垂管鼻与小眼睛潮玩角色。<br>`softnose-vinyl` |
-
-| 16 · 聚光水粉立绘 | 17 · 墨线绘本 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/16-gouache-spotlight.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/16-gouache-spotlight.png" alt="16 聚光水粉立绘" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/17-inked-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/17-inked-storybook.png" alt="17 墨线绘本" height="220"></a> |
-| 满幅抽象刷底、人物身后聚光晕与夸张比例。<br>`gouache-spotlight` | 钢笔墨线定形，轻薄淡彩与局部排线。<br>`inked-storybook` |
-
-| 18 · 暖色扁平绘本 | 19 · 圆头红线极简童画 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png" alt="18 暖色扁平绘本" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png" alt="19 圆头红线极简童画" height="220"></a> |
-| 圆润几何色块、蓝橙对比与流畅动作弧线。<br>`warm-flat-storybook` | 大圆头、双竖眼、细石墨四肢与珊瑚红。<br>`roundhead-redline` |
-
-| 20 · 暖黄墨线情绪小剧场 | 22 · 朱墨写意转绘 |
-| :---: | :---: |
-| <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png" alt="20 暖黄墨线情绪小剧场" height="220"></a> | <a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png" alt="22 朱墨写意转绘" height="220"></a> |
-| 紧凑形体、黑墨排线与芥末黄，聚焦一个动作。<br>`warm-yellow-ink-story` | 纸白漫画五官、游丝长线、完整墨团与少量朱红。<br>`vermilion-ink-wash` |
+<table>
+<tr>
+<td width="20%" align="center" valign="top">
+<strong>1 · 极简黑白线条讲解漫画</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/01-minimal-line.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/01-minimal-line.png" alt="1 极简黑白线条讲解漫画" width="150"></a><br>
+<sub>细线火柴人、网格分镜，用于步骤与概念讲解。<br><code>minimal-line</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>2 · 蜡笔童涂</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/02-crayon.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/02-crayon.png" alt="2 蜡笔童涂" width="150"></a><br>
+<sub>孩子自己画的笨拙造型，歪线、出框和粗蜡笔。<br><code>crayon</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>3 · 吉卜力风</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/03-ghibli.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/03-ghibli.png" alt="3 吉卜力风" width="150"></a><br>
+<sub>柔和水彩、暖光与手绘动画叙事。<br><code>ghibli</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>3.1 · 蜡笔童涂－潦草自画版</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png" alt="3.1 蜡笔童涂－潦草自画版" width="150"></a><br>
+<sub>大人歪线稿加孩子乱涂色，明亮白底与亲子动作。<br><code>family-crayon-card</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>4 · 小豆人涂鸦信息图</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/04-bean-doodle.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/04-bean-doodle.png" alt="4 小豆人涂鸦信息图" width="150"></a><br>
+<sub>实心黑豆人、单橙点缀与竖向分格。<br><code>bean</code></sub>
+</td>
+</tr>
+<tr>
+<td width="20%" align="center" valign="top">
+<strong>5 · MS Paint 烂涂鸦</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/05-ms-paint.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/05-ms-paint.png" alt="5 MS Paint 烂涂鸦" width="150"></a><br>
+<sub>鼠标硬画的粗糙数字感，故意画得笨拙好笑。<br><code>ms-paint</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>6 · 圆珠笔单线涂鸦</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/06-pen-scribble.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/06-pen-scribble.png" alt="6 圆珠笔单线涂鸦" width="150"></a><br>
+<sub>用缠绕线的疏密表现体积，适合肖像与动物。<br><code>pen-scribble</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>7 · 蜡笔实拍</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/07-real-crayon.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/07-real-crayon.png" alt="7 蜡笔实拍" width="150"></a><br>
+<sub>像拍下来的儿童蜡笔纸页，保留纸面与蜡质笔触。<br><code>real-crayon</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>8 · 水墨写意</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/08-ink-wash.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/08-ink-wash.png" alt="8 水墨写意" width="150"></a><br>
+<sub>毛笔浓淡、飞白与宣纸渗化，保留写意留白。<br><code>ink-wash</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>9 · 复古像素</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/09-pixel-art.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/09-pixel-art.png" alt="9 复古像素" width="150"></a><br>
+<sub>硬边方块像素与有限调色板，呈现老游戏观感。<br><code>pixel-art</code></sub>
+</td>
+</tr>
+<tr>
+<td width="20%" align="center" valign="top">
+<strong>10 · 情绪叙事淡彩速写</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/10-emo-sketch.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/10-emo-sketch.png" alt="10 情绪叙事淡彩速写" width="150"></a><br>
+<sub>靛蓝松散速写线、大留白与一处橙色。<br><code>emo-sketch</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>11 · 二维水彩风格</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/11-retro-concept.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/11-retro-concept.png" alt="11 二维水彩风格" width="150"></a><br>
+<sub>复古动画概念稿，白纸、粉彩与少量形状阴影。<br><code>retro-concept</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>12 · 暖光童画</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/12-sunlit-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/12-sunlit-storybook.png" alt="12 暖光童画" width="150"></a><br>
+<sub>动画概念水粉笔触，可选留白纸边或满幅场景。<br><code>sunlit-storybook</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>13 · 北欧纸雕</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk.png" alt="13 北欧纸雕" width="150"></a><br>
+<sub>层叠厚纸、立体纸艺和柔和投影。<br><code>paper-folk</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>14 · 北欧绘本水粉</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png" alt="14 北欧绘本水粉" width="150"></a><br>
+<sub>整画纸纹、水粉颗粒与低饱和蓝黄。<br><code>nordic-storybook</code></sub>
+</td>
+</tr>
+<tr>
+<td width="20%" align="center" valign="top">
+<strong>15 · 大鼻软偶</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/15-softnose-vinyl.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/15-softnose-vinyl.png" alt="15 大鼻软偶" width="150"></a><br>
+<sub>哑光软胶、夸张垂管鼻与小眼睛潮玩角色。<br><code>softnose-vinyl</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>16 · 聚光水粉立绘</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/16-gouache-spotlight.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/16-gouache-spotlight.png" alt="16 聚光水粉立绘" width="150"></a><br>
+<sub>满幅抽象刷底、人物身后聚光晕与夸张比例。<br><code>gouache-spotlight</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>17 · 墨线绘本</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/17-inked-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/17-inked-storybook.png" alt="17 墨线绘本" width="150"></a><br>
+<sub>钢笔墨线定形，轻薄淡彩与局部排线。<br><code>inked-storybook</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>18 · 暖色扁平绘本</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png" alt="18 暖色扁平绘本" width="150"></a><br>
+<sub>圆润几何色块、蓝橙对比与流畅动作弧线。<br><code>warm-flat-storybook</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>19 · 圆头红线极简童画</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png" alt="19 圆头红线极简童画" width="150"></a><br>
+<sub>大圆头、双竖眼、细石墨四肢与珊瑚红。<br><code>roundhead-redline</code></sub>
+</td>
+</tr>
+<tr>
+<td width="20%" align="center" valign="top">
+<strong>20 · 暖黄墨线情绪小剧场</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png" alt="20 暖黄墨线情绪小剧场" width="150"></a><br>
+<sub>紧凑形体、黑墨排线与芥末黄，聚焦一个动作。<br><code>warm-yellow-ink-story</code></sub>
+</td>
+<td width="20%" align="center" valign="top">
+<strong>22 · 朱墨写意转绘</strong><br>
+<a href="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png"><img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png" alt="22 朱墨写意转绘" width="150"></a><br>
+<sub>纸白漫画五官、游丝长线、完整墨团与少量朱红。<br><code>vermilion-ink-wash</code></sub>
+</td>
+<td width="20%"></td>
+<td width="20%"></td>
+<td width="20%"></td>
+</tr>
+</table>
 
 样图题材不同，用于展示已有画风，不代表同题对照实验或所有场景都已验证。3.1、19、20、22 展示的是正式调用所用画风锚点；审核与隐私记录见 [样例页](examples/README.md) 和各画风说明。
 
