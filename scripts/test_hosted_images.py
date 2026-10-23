@@ -29,7 +29,7 @@ class HostedImageTests(unittest.TestCase):
         self.cache = self.root / "cache"
         self.content = b"unchanged image bytes"
         self.key = "examples/sample.png"
-        self.base_url = "https://gentle-starburst-99bd99.netlify.app/hand-drawn"
+        self.base_url = "https://hand-drawn-images.pages.dev/hand-drawn"
         self.record = {"url": self.base_url + "/" + self.key, "bytes": len(self.content), "sha256": hashlib.sha256(self.content).hexdigest()}
         self.manifest = {"format_version": 1, "base_url": self.base_url, "images": {self.key: self.record}}
 
@@ -125,6 +125,25 @@ class HostedImageTests(unittest.TestCase):
         source.write_bytes(b"a different final image")
         with self.assertRaisesRegex(ValueError, "已存在.*新名称"):
             module.register_image(self.key, source, manifest_path=manifest_path, cache_root=self.cache)
+
+    def test_gallery_archive_contains_only_registered_images_and_site_files(self) -> None:
+        output = self.root / "gallery.zip"
+        with patch.object(hosted_images, "urlopen", return_value=io.BytesIO(self.content)):
+            report = hosted_images.build_gallery_archive(output, manifest=self.manifest, cache_root=self.cache)
+        self.assertEqual(report["image_count"], 1)
+        with zipfile.ZipFile(output) as archive:
+            self.assertEqual(set(archive.namelist()), {"index.html", "404.html", "hand-drawn/image-manifest.json", "hand-drawn/" + self.key})
+            self.assertEqual(archive.read("hand-drawn/" + self.key), self.content)
+            self.assertEqual(json.loads(archive.read("hand-drawn/image-manifest.json")), self.manifest)
+            self.assertIn(self.record["url"], archive.read("index.html").decode())
+
+    def test_gallery_archive_rejects_corrupt_images_without_replacing_previous_archive(self) -> None:
+        output = self.root / "gallery.zip"
+        output.write_bytes(b"previous verified gallery")
+        with patch.object(hosted_images, "urlopen", return_value=io.BytesIO(b"wrong image")):
+            with self.assertRaisesRegex(ValueError, "校验失败"):
+                hosted_images.build_gallery_archive(output, manifest=self.manifest, cache_root=self.cache)
+        self.assertEqual(output.read_bytes(), b"previous verified gallery")
 
     def test_site_archive_preserves_existing_pages_and_all_images(self) -> None:
         module = self.image_module()

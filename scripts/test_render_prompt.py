@@ -49,7 +49,8 @@ class RenderPromptTests(unittest.TestCase):
             "17": "e7a21b1d91df531d82b269842a67a4ce5d33589d222a77d68508d30452d8df6a",
             "18": "608695cfb9edfc296711653c9ed78246cdad3119780e64767e9a7e5c99edb232",
             "19": "8d20f8ade57c18c8d3e366fc064ffebcf81527494e520eba47b24a023b0fdd90",
-            "20": "980d1e844ea8496de2f248e86b41a2c27df4776733e940d0250547a570ff6cae"
+            "20": "980d1e844ea8496de2f248e86b41a2c27df4776733e940d0250547a570ff6cae",
+            "22": "f6b65c6a6ada9f7372b3a65576c87299f19628d1d3560883f3049ebe18e62e4a"
         }
         self.assertEqual(set(RENDER_PROMPT.load_style_sections()), set(expected_templates))
         for style_id, digest in expected_templates.items():
@@ -129,7 +130,7 @@ class RenderPromptTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         reference = json.loads(result.stdout)["references"][0]
         self.assertIn("url", reference)
-        self.assertTrue(reference["url"].startswith("https://gentle-starburst-99bd99.netlify.app/hand-drawn/"))
+        self.assertTrue(reference["url"].startswith("https://hand-drawn-images.pages.dev/hand-drawn/"))
         self.assertEqual(hashlib.sha256(Path(reference["path"]).read_bytes()).hexdigest(), reference["sha256"])
 
     def test_paper_folk_plain_prompt_does_not_require_image_download(self) -> None:
@@ -791,10 +792,10 @@ class RenderPromptTests(unittest.TestCase):
         result = self.run_renderer("--list")
         self.assertEqual(result.returncode, 0, result.stderr)
         catalog = json.loads(result.stdout)
-        self.assertEqual(len(catalog), 21)
+        self.assertEqual(len(catalog), 22)
         self.assertEqual(catalog[0]["parameters"], ["N", "分镜列表"])
         self.assertEqual(catalog[3]["style_id"], "3.1")
-        self.assertEqual([style["style_id"] for style in catalog][-3:], ["18", "19", "20"])
+        self.assertEqual([style["style_id"] for style in catalog][-3:], ["19", "20", "22"])
         for style in catalog:
             with self.subTest(style_id=style["style_id"]):
                 self.assertEqual(RENDER_PROMPT.canonical_style_id(style["name"]), style["style_id"])

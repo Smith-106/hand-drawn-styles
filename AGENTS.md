@@ -12,7 +12,8 @@
 4. 风格 3.1 的正式生产、多页或连续故事必须完整消费 `family-crayon-card-v4`：基础生成后依次执行 `scribble-correction` 与 `scribble-chaos-correction`，再执行 `style-contract-check`。三次图像操作只得到 `final-candidate`，独立验收报告为 pass 才能成为 final；证据不足或审核失败不可放行。记录与迁移见 [docs/style-3.1-review.md](docs/style-3.1-review.md)。
 5. 风格 19 正式生产必须完整使用正式 JSON 调用包:每张携带原创锚点,锁定模型快照和高保真参考图输入,基础图只标为 `candidate-only`,通过 `acceptance_contract` 后才能标为 final;任一条件不可用时停止生产。
 6. 风格 20 正式生产必须完整使用正式 JSON 调用包:使用固定原创锚点生成 `final-candidate`,然后运行机读验收器;失败候选整张拒收并重新生成,禁止用通用画风迁移编辑修补。
-7. 其他画风默认只输出最终 prompt 纯文本;风格 3.1/19/20 正式生产输出带参考锚点的 JSON 调用包。**不要生图**。
+7. 风格22为 v1.1.0 朱墨写意转绘，先完整执行 [内置 sweety-image-art-direction](docs/image-art-direction.md) 预处理，默认输出带画风锚点与可选 `--source-image` 内容原图的 JSON；不要把锚点人物或物件复制到新内容，来源与发布状态见 [迁入记录](docs/style-22-review.md)。
+8. 其他画风默认只输出最终 prompt 纯文本;风格 3.1/19/20/22 输出带参考锚点的 JSON 调用包。**不要生图**。
 
 ### 维护者验证例外
 
@@ -29,6 +30,6 @@
 
 ## 图片存储规则
 
-所有图片均使用 Netlify 公开链接，地址、大小和 SHA-256 登记在 `assets/image-manifest.json`。Git 与安装包禁止保存图片二进制。新增图片必须依次完成隐私清理、登记、完整站点部署、匿名下载校验，再提交引用。执行细则见 [docs/image-hosting.md](docs/image-hosting.md)。
+所有图片均使用 Cloudflare Pages 公开链接，地址、大小和 SHA-256 登记在 `assets/image-manifest.json`。Git 与安装包禁止保存图片二进制。新增图片必须依次完成隐私清理、登记、完整站点部署、匿名下载校验，再提交引用。执行细则见 [docs/image-hosting.md](docs/image-hosting.md)。
 
 运行参考图由渲染器下载到独立缓存，校验成功后输出绝对路径。首次调用需要网络；缺图、校验失败或离线缓存失效时停止正式调用，不得省略参考图。安装检查与打包检查必须覆盖全部画风。

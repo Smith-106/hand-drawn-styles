@@ -128,6 +128,10 @@ STYLE_ALIASES = {
     "mustard-ink-story": "20",
     "暖黄墨线": "20",
     "暖黄墨线情绪小剧场": "20",
+    "vermilion-ink-wash": "22",
+    "ink-comic-transfer": "22",
+    "朱墨写意": "22",
+    "朱墨水墨漫画": "22",
 }
 
 STYLE_3_1_ANCHOR_PIXEL_SHA256 = "1ae67d0088d58f2527ae81aa05d8453ce1ccc9d4614342c0bb1ab71a5e4895cd"
@@ -654,6 +658,21 @@ def validate_character_references(items: list[str]) -> list[Path]:
     return paths
 
 
+def validate_source_image(value: str | None, style_id: str) -> Path | None:
+    if value is None:
+        return None
+    if style_id != "22":
+        raise ValueError("--source-image 仅适用于画风 22 的原图转绘")
+    path = Path(value).expanduser().resolve()
+    if not path.is_file():
+        raise ValueError(f"内容原图不可用: {path}")
+    if path.suffix.lower() == ".png":
+        png_size(path)
+    elif path.suffix.lower() not in {".jpg", ".jpeg", ".webp"}:
+        raise ValueError(f"内容原图格式不受支持: {path}")
+    return path
+
+
 STYLE_3_1_REVIEW_DIMENSIONS = (
     "content-preservation", "face-language", "proportions", "line-language",
     "scribble-language", "color-preservation", "composition-preservation",
@@ -749,6 +768,7 @@ def build_payload(
     values: dict[str, str],
     aspect: str | None,
     character_references: list[Path],
+    source_image: Path | None = None,
 ) -> dict[str, object]:
     payload: dict[str, object] = {
         "style_id": style_id,
@@ -756,7 +776,7 @@ def build_payload(
         "references": [],
         "inputs": {"variables": values, "aspect": aspect or None},
     }
-    if style_id not in {"3.1", "19", "20"}:
+    if style_id not in {"3.1", "19", "20", "22"}:
         for url in style_reference_urls(style_id):
             reference = hosted_image_reference(hosted_images.key_for_url(url))
             reference_path = Path(reference["path"])
@@ -767,6 +787,45 @@ def build_payload(
                 "must_not_copy": "characters, objects, composition, or story content",
             })
         payload["references"].extend({"path": str(reference), "role": "character"} for reference in character_references)
+    if style_id == "22":
+        preprocessing_path = ROOT / "docs/image-art-direction.md"
+        instructions = preprocessing_path.read_text(encoding="utf-8")
+        if not instructions.strip():
+            raise ValueError("画风 22 缺少必经美术指导预处理说明")
+        anchor_reference = hosted_image_reference("assets/style-22/anchor-vermilion-ink-wash.png")
+        png_size(Path(anchor_reference["path"]))
+        references = [{
+            **anchor_reference,
+            "must_not_copy": "identity, glasses, hairstyle, jersey, number 10, bicycle, pose or composition",
+        }]
+        if source_image is not None:
+            references.append({
+                "path": str(source_image),
+                "role": "content-source",
+                "purpose": "subject identity, count, clothing type, pose, contact, framing and source aspect ratio",
+            })
+        references.extend({"path": str(path), "role": "character"} for path in character_references)
+        payload["references"] = references
+        payload["preprocessing"] = {
+            "required": True,
+            "skill": "sweety-image-art-direction",
+            "instructions": instructions,
+            "sha256": hashlib.sha256(instructions.encode("utf-8")).hexdigest(),
+            "required_outputs": ["input roles", "content anchors", "visual hierarchy and coherent masses", "ink and color plan", "review targets"],
+        }
+        payload["execution"] = {
+            "mode": "style-transfer" if source_image is not None else "generate",
+            "reference_order": [reference["role"] for reference in references],
+            "image_execution_required": True,
+            "note": "Execute preprocessing before generation; pass actual reference files in this order. This package does not generate an image.",
+        }
+        payload["inputs"]["source_image"] = str(source_image) if source_image is not None else None
+        payload["review_requirements"] = [
+            "Compare content against the source and drawing economy against the style anchor.",
+            "Keep key identity, count, gesture and object connections while simplifying incidental photo detail.",
+            "Reject realistic watercolor, fragmented ink, imported anchor content, signatures, seals and watermarks.",
+            "Apply sweety-image-privacy cleanup without fabricated camera metadata; verify pixels and report remaining metadata or source attributes.",
+        ]
     if style_id == "3.1":
         anchor_reference = hosted_image_reference("assets/style-3.1/anchor-family.png")
         anchor = Path(anchor_reference["path"])
@@ -982,6 +1041,7 @@ def main() -> int:
     parser.add_argument("--text", help="填入【文字】")
     parser.add_argument("--title", help="风格 3.1 的准确标题原文;渲染器负责生成固定文字指令")
     parser.add_argument("--aspect", help="可选画幅比例,例如 3:4")
+    parser.add_argument("--source-image", metavar="PATH", help="画风22的待转绘原图；作为content-source输入，不替代画风锚点")
     parser.add_argument(
         "--character-reference",
         action="append",
@@ -1000,12 +1060,12 @@ def main() -> int:
         "--format",
         choices=("auto", "text", "json"),
         default="auto",
-        help="auto 对 3.1/19/20 输出正式 JSON、其他画风输出 text;json 含画风锚点或生成合同",
+        help="auto 对 3.1/19/20/22 输出 JSON、其他画风输出 text;json 含画风锚点及适用流程",
     )
     parser.add_argument(
         "--text-only-preview",
         action="store_true",
-        help="只允许 3.1/19/20 的非生产预览显式输出纯 prompt;不得用于正式生图",
+        help="3.1/19/20/22 只有非生产预览可显式输出纯 prompt;不得冒充锚点已生效",
     )
     args = parser.parse_args()
 
@@ -1056,6 +1116,8 @@ def main() -> int:
             if values.get("文字", "") in {"", "不加任何文字"}:
                 values["文字"] = "No text anywhere."
             validate_style_20_text(values["文字"])
+        elif style_id == "22":
+            values.setdefault("文字", "不加任何文字")
         if style_id == "12":
             scene = values.get("场景", "")
             if "【背景元素】" in scene:
@@ -1063,9 +1125,10 @@ def main() -> int:
             elif "背景元素" in values:
                 raise ValueError("画风 12 的场景没有【背景元素】参数;请在留白纸边档场景中使用")
         character_references = validate_character_references(args.character_reference)
+        source_image = validate_source_image(args.source_image, style_id)
         template = extract_template(style_id)
         prompt = render(template, values, args.aspect)
-        locked_style_ids = {"3.1", "19", "20"}
+        locked_style_ids = {"3.1", "19", "20", "22"}
         output_format = "json" if args.format == "auto" and style_id in locked_style_ids else args.format
         if output_format == "auto":
             output_format = "text"
@@ -1074,7 +1137,7 @@ def main() -> int:
                 f"画风 {style_id} 正式生产不能只输出 prompt;请使用 --format json,"
                 "或仅在非生产预览时显式加 --text-only-preview"
             )
-        payload = build_payload(style_id, prompt, values, args.aspect, character_references) if output_format == "json" else None
+        payload = build_payload(style_id, prompt, values, args.aspect, character_references, source_image) if output_format == "json" else None
     except (OSError, ValueError) as error:
         print(f"render_prompt: {error}", file=sys.stderr)
         return 2

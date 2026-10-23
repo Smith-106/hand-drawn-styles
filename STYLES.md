@@ -8,7 +8,7 @@
 
 > 别名:`rawkid`、`kid-scrawl`、`stick-kid`、`family-crayon-card`、`parent-child-crayon`、`submission-crayon`。纯风格(可选顶部手写中文标题)。比例:不传则不注入。占位符 `【主体】【文字】` 自动推断。
 >
-> 唯一主视觉真源:[assets/style-3.1/anchor-family.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-3.1/anchor-family.png)。这张图的视觉判断优先于文字配方;文字只负责把它转译到新人物、新动作和新场景,不能另造一套更规整的审美。正式生产、连续故事或多页作品必须把它作为**纯画风参考**随每一张请求一起传入;只参考线条、五官、人物比例、蜡笔涂抹轨迹、留白和纸面,不得复制参考图中的家庭成员、站位、衣服或情节。参考图不可用时停止正式生产,不能改用业务项目自己的画风段落补救。
+> 唯一主视觉真源:[assets/style-3.1/anchor-family.png](https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png)。这张图的视觉判断优先于文字配方;文字只负责把它转译到新人物、新动作和新场景,不能另造一套更规整的审美。正式生产、连续故事或多页作品必须把它作为**纯画风参考**随每一张请求一起传入;只参考线条、五官、人物比例、蜡笔涂抹轨迹、留白和纸面,不得复制参考图中的家庭成员、站位、衣服或情节。参考图不可用时停止正式生产,不能改用业务项目自己的画风段落补救。
 >
 > 正式合同为 `family-crayon-card-v4`:基础生成后必须依次做两轮只改蜡笔轨迹的编辑。第一轮温和打散统一纹理,第二轮只处理残余规整排线并放大粗钝笔触与大片漏白;前两阶段都不是 final，第三阶段只是 `final-candidate`；再通过独立 `style-contract-check` 才能成为 final，见 [验收记录与迁移](docs/style-3.1-review.md)。一次强修正虽然可能得到足够乱度,但实测会擅自改衣服配色或人物形态,禁止用它替代递进流程。
 >
@@ -309,7 +309,7 @@ STYLE RECIPE (follow exactly): MATTE traditional gouache finish over the whole i
 >
 > 出身:Midjourney --sref 1399033614 的 gpt-image 复刻(2026-07-16 五张对照迭代定稿,refB 终评 96+):层叠纸雕 × 斯堪的纳维亚民俗图案 × 编辑设计配色,手工、温暖、个性。适合人物立绘、民俗动物、叙事场景。
 > 命门(两轮翻车点,五条都必须写死):**① NOT flat papercut**——不写就出平面对称剪纸花边(第一版翻车原因);本风格是"立体纸雕塑的柔光渲染/实拍",不是剪纸;**②头是定格木偶式立体雕塑头**——不写死就出"平面贴片脸+画上去的三角鼻"(第二轮翻车原因):刘海是有体积的圆顶并在额头投影、鼻子是物理凸出的纸楔(一侧受光一侧投影);**③留白 + 不对称 editorial 构图**——不写死模型会把画面填满变成装饰壁纸;**④立体感三件套**:部件物理垫高 + 大而柔的真实投影 + 左上柔光 + 背景方向性明暗渐变,丢一样就"变平";**⑤脸的身份特征**:闭眼细弧线 + 圆形腮红贴片,眼睛一睁开就串味。
-> 满分打法(codex/gpt-image 通道):生成前先用 view_image 看 [examples/13-paper-folk.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/examples/13-paper-folk.png) 和 [examples/13-paper-folk-musician.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/examples/13-paper-folk-musician.png) 做风格锚定(只学风格不抄构图),再走本模板——实测比纯文字模板再高一档(96+ vs ~90)。
+> 满分打法(codex/gpt-image 通道):生成前先用 view_image 看 [examples/13-paper-folk.png](https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk.png) 和 [examples/13-paper-folk-musician.png](https://hand-drawn-images.pages.dev/hand-drawn/examples/13-paper-folk-musician.png) 做风格锚定(只学风格不抄构图),再走本模板——实测比纯文字模板再高一档(96+ vs ~90)。
 > 模板为已验证英文原文,占位符也填英文,不要转译。
 
 ```
@@ -444,7 +444,7 @@ AVOID: generic corporate vector clip-art, stock infographic people, mainstream r
 
 ## 19. 圆头红线极简童画(roundhead-redline)
 
-> 别名:`roundhead-redline`、`redline-roundhead`、`graphite-redline`、`圆头红线`、`黑红白圆头童画`。纯风格。比例:不传则不注入。占位符 `【主体】【文字】` 自动推断。正式生产必须附带 [assets/style-19/anchor-roundhead-redline.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-19/anchor-roundhead-redline.png)，默认无字。
+> 别名:`roundhead-redline`、`redline-roundhead`、`graphite-redline`、`圆头红线`、`黑红白圆头童画`。纯风格。比例:不传则不注入。占位符 `【主体】【文字】` 自动推断。正式生产必须附带 [assets/style-19/anchor-roundhead-redline.png](https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png)，默认无字。
 >
 > 研发边界:本配方从五张外部动画设定参考中抽取平面结构、铅笔压力、干性颜料、限色色板和负空间机制；锚点、样图、默认人物、服装、道具和动作均为原创，不保存或分发外部参考，不复现片名、标识、固定角色、固定红白横条服装或海报排版。
 >
@@ -481,7 +481,7 @@ AVOID: any title, logo, watermark or poster layout; red-and-white striped shirt 
 
 ## 20. 暖黄墨线情绪小剧场(warm-yellow-ink-story)
 
-> 别名:`warm-yellow-ink-story`、`yellow-ink-story`、`mustard-ink-story`、`暖黄墨线`。纯风格。比例:不传则不注入。占位符 `【主体】【文字】` 自动推断。正式生产必须附带 [assets/style-20/anchor-warm-yellow-ink-story.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png)，默认无字。
+> 别名:`warm-yellow-ink-story`、`yellow-ink-story`、`mustard-ink-story`、`暖黄墨线`。纯风格。比例:不传则不注入。占位符 `【主体】【文字】` 自动推断。正式生产必须附带 [assets/style-20/anchor-warm-yellow-ink-story.png](https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png)，默认无字。
 >
 > 研发边界:本配方从十张外部参考中抽取暖白负空间、干性黑色墨线、方向性黑色排线、芥末黄、淡珊瑚腮红、紧凑形体和单动作叙事机制。原创锚点、样图、默认人物、动物和动作均为本轮新设计；不保存或分发外部参考，不复现作者名、账号、水印、固定黄兜帽角色、原作文案或原图布局。
 >
@@ -542,4 +542,38 @@ AVOID: commercial children's-book polish; vector clip-art; generic cute storyboo
 
 ```
 画在带细腻纸纹颗粒的白色水彩纸上(纸的牙口微距可见,笔线穿过纸纹微微断续);水彩颜料在纸纹里有细小沉淀颗粒。
+```
+
+---
+
+## 22. 朱墨写意转绘
+
+> 别名：`vermilion-ink-wash`、`ink-comic-transfer`、`朱墨写意`、`朱墨水墨漫画`。来自用户选择的 `sweety-ink-wash v1.1.0` 第一风格。保留原有8号传统水墨；第二组彩墨写意已被用户否定，不迁入。
+>
+> 用户指定的展示图兼画风锚点：[朱墨写意骑行样图](https://hand-drawn-images.pages.dev/hand-drawn/assets/style-22/anchor-vermilion-ink-wash.png)。仅提供画法，不能把图中人物、球衣、自行车或10号复制给新内容。正式调用必须传入锚点；未下载或校验失败时停止需要参考图的调用。图床现状与证据范围见 [入库记录](docs/style-22-review.md)。
+>
+> 先完整执行包内 [sweety-image-art-direction](docs/image-art-direction.md) 预处理：明确交付、输入分工、三至五个保留项、观看主次、大形与线面方案、具体检查点。它服从本配方的漫画式概括与黑白朱红色板，不追加摄影材质要求。
+>
+> 默认输出带锚点与预处理说明的 JSON 调用包；原图通过 `--source-image PATH` 作为 `content-source` 输入，原图宽高比默认沿用，显式 `--aspect` 优先。只需查看模板可用 `--format text --text-only-preview`；预览不能当作锚点已经生效。无字时 `【文字】` 自动填“不加任何文字”；原图数字或标识确需保留时用 `--text` 明确原文。
+
+```text
+把随请求附带的画风参考当作“游丝线＋大墨团＋大片纸白”的朱墨水墨漫画视觉锚点，以参考的造型概括程度和笔墨语言为首要标准。只继承毛笔线条、完整墨面、少笔成形、纸白与少量朱红；不要复制参考中的人物身份、眼镜、长发、球衣、10号、自行车、站位和动作。
+
+本次内容：【主体】。
+
+原图与风格图分别使用：存在原图时，原图提供主体识别特征、数量、动作、现代衣着或物件结构、接触关系、主要构图与裁切，画风参考只提供画法。先看图，提取三至五个关键保留项；允许画风所需的适度漫画化和细节省略，不锁定每根发丝、每道衣褶、每片树叶或写实面部明暗。没有原图、只有文字时按本次内容创作，不能从画风锚点偷带人物和自行车。
+
+人物采用水墨漫画的概括造型。脸是几乎纯白的纸面，只以少量细线画眼睛、鼻子、嘴和下颌，眼中有简洁淡墨；保留原图的关键识别特征、年龄感和神情，不画立体鼻梁渐变、写实颧骨阴影、皮肤质感、腮红或摄影式明暗。非人物不套用人脸、发饰或人体比例。
+
+头发、皮毛或物体暗部用三到五组或更少的连贯浓黑与中灰大墨面表现，少量游丝般的柔韧长弧线穿插。主要墨面完整通透，局部湿墨自然融合；禁止逐根发丝、铅笔排线、碎片飞溅、刮痕和大量细白裂纹。
+
+衣物保留原来的类型与必要标记，大部分以纸白成立，只用少数有提按变化的长线、两三块淡墨和少量浓墨概括褶皱，不描摹每道衣褶、缝线或布料纹理。不要把现代服装换成古装。器物保留主要轮廓、部件连接和与主体的接触关系，以简练线面重画，省略密集小零件、镜面高光和表面纹理。动物保留物种、体态与斑纹布局。
+
+背景为次要环境时，以纯白留白为主，省去密集叶片、写实地面和无关装饰，只在远离视觉焦点处留极少淡灰环境意向。背景本身是风景、建筑或叙事关键时，保留主要地形、建筑体量、透视和前后关系，用疏密墨面与长笔走势组织；不因追求留白裁掉主体或把城市换成古代山水。
+
+颜色只有墨黑、浓淡灰、纸白和极少朱红。朱红优先落在原图已有装饰或适合的局部，不强加红眼、血迹、伤口或红色道具。脸、胳膊及其他纸白部位不铺肉色、米色或黄色。清透白底，不做旧、不铺满纸纹；原图透明时保留透明要求。用户明确要求纯黑白或保留原色时按该要求调整，笔墨语言仍维持本配方。
+
+保持原图横竖方向、宽高比、主要构图和裁切；用户另有明确画幅比例时以该比例为准。没有原图时按本次内容组织构图。文字要求：【文字】。只保留明确需要的文字，不新增题字、印章、签名或水印。
+
+整图应有粗细悬殊的毛笔线、黑白疏密、少笔成形和未画满的美感。不要写实水彩肖像、精细钢笔淡彩、照片灰度化、素描、厚涂、常规细腻动漫上色、细碎色块或做旧纸纹。风格不足时重新分析并减少无关细节锁定，带上原图和锚点针对问题修订，不只连续转绘上一轮成图。
 ```

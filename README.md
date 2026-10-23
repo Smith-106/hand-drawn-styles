@@ -1,6 +1,6 @@
 # hand-drawn-styles
 
-一套工具无关的手绘画风提示词配方，包含 20 种整数编号画风和 3.1 变体，共 21 套。适用于能读取自定义指令的 AI Agent。
+一套工具无关的手绘画风提示词配方，包含 21 种整数编号画风和 3.1 变体，共 22 套。适用于能读取自定义指令的 AI Agent。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -35,7 +35,7 @@ python3 -B scripts/render_prompt.py --list
 
 | 14 北欧绘本水粉 | 18 暖色扁平绘本 | 20 暖黄墨线 |
 | :--: | :--: | :--: |
-| <img src="https://gentle-starburst-99bd99.netlify.app/hand-drawn/examples/14-nordic-storybook.png" width="220"> | <img src="https://gentle-starburst-99bd99.netlify.app/hand-drawn/examples/18-warm-flat-storybook.png" width="220"> | <img src="https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png" width="220"> |
+| <img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/14-nordic-storybook.png" width="220"> | <img src="https://hand-drawn-images.pages.dev/hand-drawn/examples/18-warm-flat-storybook.png" width="220"> | <img src="https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png" width="220"> |
 
 样例页保留各编号与历史隐私状态说明。更多画风见 [全部样例](examples/README.md)；本次整理不承诺远端图片可用性已重新验证。
 
@@ -104,6 +104,20 @@ python3 -B scripts/render_prompt.py \
 
 以上命令只渲染调用包，不执行图像模型。正式参考图首次使用需要下载并通过文件与像素校验；有效缓存可离线复用。
 
+### 22 朱墨写意转绘
+
+来自用户认可的 `sweety-ink-wash v1.1.0` 第一风格，使用纸白漫画五官、游丝长线、完整墨团与少量朱红；区别于8号传统水墨。用户指定的骑行效果图兼作画风锚点，见 [迁入记录](docs/style-22-review.md) 和 [样例页](examples/README.md#22-朱墨写意转绘)。
+
+```bash
+python3 -B scripts/render_prompt.py --style vermilion-ink-wash \
+  --subject '原图人物扶着自行车，保留眼镜、姿态和车架连接' \
+  --source-image /absolute/path/source.jpg --text '只保留球衣上的10'
+```
+
+默认输出带锚点、内容原图和完整 `sweety-image-art-direction` 预处理说明的 JSON；调用端先执行预处理，再将真实图片按角色传入图像工具。包内 [美术指导](docs/image-art-direction.md) 服从22号配方，不改变其黑白朱红与漫画式概括。仅查看文字用 `--format text --text-only-preview`。
+
+**图库已迁移到 Cloudflare Pages**：2026-10-23，全部76张图片匿名下载通过大小和 SHA-256 校验；运行所需6张参考图另经空缓存联网下载验证。有效缓存仍可离线复用，首次调用需要联网。迁移不改变历史隐私记录或视觉验收范围。
+
 ## 安装 Skill
 
 [下载已发布的轻量包](https://github.com/threerocks/hand-drawn-styles/releases/latest/download/hand-drawn-skill.zip)，解压后保留 `hand-drawn/` 完整目录，并执行 `python3 -B scripts/check_skill.py`。发布包校验文件见 [SHA256SUMS](https://github.com/threerocks/hand-drawn-styles/releases/latest/download/SHA256SUMS)，详细安装方式见 [INSTALL.md](INSTALL.md)。
@@ -139,7 +153,7 @@ python3 -B hand-drawn-styles/scripts/check_skill.py
 
 验收脚本检查文件、记录与审核声明，不证明模型确实使用了声明的输入，也不代替实际看图。3.1 历史三阶段样图仍为内部通过、待用户复核；合同升级没有把它们改为用户认可。详细历史边界见 [失败案例](docs/style-comparison.md)。
 
-业务项目只提供内容、准确文字、比例和可选角色参考，不维护第二套线条、五官、色板或纸面规则。3.1/19/20 的纯文本仅允许显式 `--text-only-preview` 的非生产预览。
+业务项目只提供内容、准确文字、比例和可选角色参考，不维护第二套线条、五官、色板或纸面规则。3.1/19/20/22 的纯文本仅允许显式 `--text-only-preview` 的非生产预览。
 
 ### 维护者构建与验收
 
@@ -170,7 +184,7 @@ python3 -B scripts/build_skill_package.py
 ```text
 hand-drawn-styles/
 ├── PROTOCOL.md        # 选择、参数与输出协议
-├── STYLES.md          # 21 套配方的唯一真源
+├── STYLES.md          # 22 套配方的唯一真源
 ├── SKILL.md           # Skill 入口
 ├── AGENTS.md          # 跨工具入口
 ├── INSTALL.md         # 安装与检查说明

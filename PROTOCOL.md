@@ -10,8 +10,8 @@
 
 - **用户已显式指定** → 直接采用。识别方式三选一(任一命中即可):
   - 中文名:极简线条 / 火柴人 / 蜡笔 / 童涂 / 吉卜力 / 蜡笔童涂潦草版 / 潦草自画版 / 亲子投稿蜡笔故事卡 / 家庭投稿蜡笔卡 / 小豆人 / MS Paint / 烂涂鸦 / 圆珠笔 / 单线涂鸦 / 蜡笔实拍 / 真蜡笔 / 水墨 / 写意 / 国画 / 像素 / 像素风 / 情绪叙事 / 淡彩速写 / 速写讲故事 / 二维水彩风格 / 二维水彩 / 复古动画 / 概念稿 / 概念设定 / 暖光童画 / 动画概念暖绘 / 北欧纸雕 / 纸雕 / 纸艺 / 衍纸 / 北欧绘本水粉 / 北欧绘本 / 绘本水粉 / 斯堪的纳维亚绘本 / 大鼻软偶 / 软偶 / 软胶潮玩 / 大鼻子潮玩 / 聚光水粉立绘 / 聚光立绘 / 水粉立绘 / 墨线绘本 / 墨线淡彩 / 线稿绘本 / 速写绘本 / 暖色扁平绘本 / 扁平暖色绘本 / 几何扁平绘本 / 圆头红线 / 圆头红线极简童画 / 黑红白圆头童画 / 暖黄墨线 / 暖黄墨线情绪小剧场
-  - 编号:1–20,另有稳定变体 3.1(蜡笔童涂-潦草自画版)。旧编号 1.1、1.2 已删除。
-  - 英文别名:`xkcd` `stickman` `minimal-line`(1) / `crayon` `kid-crayon`(2) / `ghibli`(3) / `rawkid` `kid-scrawl` `stick-kid` `family-crayon-card` `parent-child-crayon` `submission-crayon`(3.1) / `bean` `blob`(4) / `ms-paint` `bad-doodle` `ugly`(5) / `scribble` `pen-scribble` `ballpoint`(6) / `real-crayon` `crayon-photo`(7) / `ink-wash` `ink` `shuimo` `chinese-painting`(8) / `pixel` `pixel-art` `8-bit` `16-bit`(9) / `emo-sketch` `story-sketch` `watercolor-sketch` `light-watercolor`(10) / `retro-concept` `mid-century` `gouache-concept`(11) / `sunlit-storybook` `vis-dev` `storybook-visdev`(12) / `paper-folk` `papercraft` `nordic-papercraft` `paper-sculpture` `quilling`(13) / `nordic-storybook` `scandi-gouache` `scandinavian-storybook` `soft-gouache`(14) / `softnose` `softnose-vinyl` `bignose-toy` `vinyl-toy` `art-toy`(15) / `gouache-spotlight` `spotlight-gouache` `character-spotlight`(16) / `inked-storybook` `ink-storybook` `sketch-storybook` `storybook-ink`(17) / `warm-flat-storybook` `flat-storybook` `geometric-storybook` `warm-flat`(18) / `roundhead-redline` `redline-roundhead` `graphite-redline`(19) / `warm-yellow-ink-story` `yellow-ink-story` `mustard-ink-story`(20)
+  - 编号:1–20、22,另有稳定变体 3.1(蜡笔童涂-潦草自画版)。旧编号 1.1、1.2 和21（独白风格）已删除；新增朱墨风格使用22，不复用旧21或其别名。
+  - 英文别名:`xkcd` `stickman` `minimal-line`(1) / `crayon` `kid-crayon`(2) / `ghibli`(3) / `rawkid` `kid-scrawl` `stick-kid` `family-crayon-card` `parent-child-crayon` `submission-crayon`(3.1) / `bean` `blob`(4) / `ms-paint` `bad-doodle` `ugly`(5) / `scribble` `pen-scribble` `ballpoint`(6) / `real-crayon` `crayon-photo`(7) / `ink-wash` `ink` `shuimo` `chinese-painting`(8) / `pixel` `pixel-art` `8-bit` `16-bit`(9) / `emo-sketch` `story-sketch` `watercolor-sketch` `light-watercolor`(10) / `retro-concept` `mid-century` `gouache-concept`(11) / `sunlit-storybook` `vis-dev` `storybook-visdev`(12) / `paper-folk` `papercraft` `nordic-papercraft` `paper-sculpture` `quilling`(13) / `nordic-storybook` `scandi-gouache` `scandinavian-storybook` `soft-gouache`(14) / `softnose` `softnose-vinyl` `bignose-toy` `vinyl-toy` `art-toy`(15) / `gouache-spotlight` `spotlight-gouache` `character-spotlight`(16) / `inked-storybook` `ink-storybook` `sketch-storybook` `storybook-ink`(17) / `warm-flat-storybook` `flat-storybook` `geometric-storybook` `warm-flat`(18) / `roundhead-redline` `redline-roundhead` `graphite-redline`(19) / `warm-yellow-ink-story` `yellow-ink-story` `mustard-ink-story`(20) / `vermilion-ink-wash` `ink-comic-transfer`(22)
   - 注意 `涂鸦/doodle` 本身有歧义(#4 小豆人、#5 MS Paint、#6 圆珠笔都沾涂鸦):用户只说"涂鸦/画烂点"而不指明时,按未指定处理，依据用途缩小候选或展示完整菜单，等待选择。
   - 用户说“亲子手绘”“家庭蜡笔画”“亲子蜡笔故事”“像一家人站在白纸上的蜡笔画”或“潦草自画版”时,直接采用 3.1;这些表达不再进入通用画风菜单。只有单独说“手绘风”且没有亲子、家庭或蜡笔语义时,才按未指定处理。
 - **用户未指定** → 先读取 [有来源的选型说明](docs/style-selection.md)（或运行 `python3 -B scripts/render_prompt.py --catalog`）。用途与视觉意图足够明确时，提供 2–3 个候选，各写匹配理由和重要限制，保留完整菜单入口，**停下等用户选**。不能编造匹配分数，也不能把选型建议当成新配方指令。若依据不足以缩小候选，展示下面的完整菜单并等待选择；显式指定及上述直接映射始终优先。
@@ -41,8 +41,9 @@
   18. 暖色扁平绘本 —— 圆润几何大色块+几乎无外轮廓线,蓝橙限定色板+暖白大留白
   19. 圆头红线极简童画 —— 大圆头双竖眼+极细石墨四肢+黑红白限色+大留白,正式生产强制原创锚点与拒收检查
   20. 暖黄墨线情绪小剧场 —— 暖白纸+干性黑墨排线+芥末黄+淡腮红,用紧凑人物和单一接触动作讲关系;正式生产强制原创锚点与失败关闭验收
+  22. 朱墨写意转绘 —— 游丝线、大墨团、纸白漫画五官与少量朱红；默认带锚点、可选内容原图和必经美术指导预处理
   ```
-  > 编号按 1、2、3、3.1、4…20 顺序展示。
+  > 编号按 1、2、3、3.1、4…20、22 顺序展示。
 
 ### 2. 取配方
 
@@ -54,7 +55,7 @@
 
 风格 3.1 有额外的稳定性合同:
 
-- 正式生产、连续故事和多页作品的每一张请求,都必须附带 [assets/style-3.1/anchor-family.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-3.1/anchor-family.png),并标记为“纯画风参考”。不能只在角色卡或第一页使用一次。
+- 正式生产、连续故事和多页作品的每一张请求,都必须附带 [assets/style-3.1/anchor-family.png](https://hand-drawn-images.pages.dev/hand-drawn/assets/style-3.1/anchor-family.png),并标记为“纯画风参考”。不能只在角色卡或第一页使用一次。
 - 画风锚点只约束视觉语言,不能让模型复制其中人物、衣服、站位与情节。若还需固定角色,角色参考图作为另一份输入单独传递,不得替代画风锚点。
 - 锚点按 PNG 尺寸与解码后的像素 SHA-256 固定;EXIF、IPTC、C2PA 等元数据变化不改变画风身份,但任何实际像素变化都必须失败关闭。锚点缺失、损坏、被换图或调用端不能传参考图时,停止正式生产并明确报告“画风锚点未生效”;不得退回文字版、不得改用业务项目自定义画风块蒙混出图。
 - 需要可机读调用包时执行:`python3 scripts/render_prompt.py --style 3.1 --subject '…' --text '…' --aspect 3:4 --format json`。JSON 会给出最终 prompt、画风锚点绝对路径和参考角色。
@@ -65,7 +66,7 @@
 
 风格 19 有独立的稳定性合同:
 
-- 正式生产每张请求都必须附带 [assets/style-19/anchor-roundhead-redline.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-19/anchor-roundhead-redline.png)，并标记为 `style-only`。只继承形体、五官、动作弧线、铅笔压力、干性颜料、限色色板和负空间，不复制锚点中的人物、动物、服装、道具、站位或动作。
+- 正式生产每张请求都必须附带 [assets/style-19/anchor-roundhead-redline.png](https://hand-drawn-images.pages.dev/hand-drawn/assets/style-19/anchor-roundhead-redline.png)，并标记为 `style-only`。只继承形体、五官、动作弧线、铅笔压力、干性颜料、限色色板和负空间，不复制锚点中的人物、动物、服装、道具、站位或动作。
 - 锚点按 1024×1536 尺寸和解码像素 SHA-256 固定。锚点缺失、损坏、像素变化，或调用端不能高保真传入参考图时停止正式生产；元数据变化不改变画风身份。
 - 正式调用执行 `python3 scripts/render_prompt.py --style 19 --subject '…' --aspect 3:4 --format json`。渲染器默认填入无字指令，输出 正式调用包、固定模型快照要求、画风锚点、角色参考顺序、候选状态和拒收规则。
 - 基础生成结果只能标为 `candidate-only`。调用端必须按 `acceptance_contract` 的 7 项维度评分，并检查所有硬失败条件；只有总分至少 30/35 且无硬失败项时才能标为 final。失败图拒收，不能靠统一抖线、加粗描边或蜡笔滤镜补救。
@@ -75,13 +76,21 @@
 
 风格 20 有独立的直接生成与失败关闭验收合同:
 
-- 正式生产每张请求都必须附带 [assets/style-20/anchor-warm-yellow-ink-story.png](https://gentle-starburst-99bd99.netlify.app/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png)，并标记为 `style-only`。锚点只约束暖白负空间、紧凑形体、极简五官、干性墨线、方向性黑色排线、芥末黄、安静无纹样衣物和动作叙事，不能复制锚点中的人物、发型、衣服、道具、站位或动作。
+- 正式生产每张请求都必须附带 [assets/style-20/anchor-warm-yellow-ink-story.png](https://hand-drawn-images.pages.dev/hand-drawn/assets/style-20/anchor-warm-yellow-ink-story.png)，并标记为 `style-only`。锚点只约束暖白负空间、紧凑形体、极简五官、干性墨线、方向性黑色排线、芥末黄、安静无纹样衣物和动作叙事，不能复制锚点中的人物、发型、衣服、道具、站位或动作。
 - 锚点按 1156×1361 尺寸和解码像素 SHA-256 固定。锚点缺失、损坏、像素变化，或调用端不能高保真传入参考图时停止正式生产；元数据变化不改变画风身份。
 - 正式调用执行 `python3 scripts/render_prompt.py --style 20 --subject '…' --aspect 3:4 --format json`。渲染器默认填入无字指令，输出 正式调用包、固定模型快照要求、画风锚点、角色参考顺序、直接生成流程、最终验收流程和拒收规则。
 - 基础生成结果只能标为 `final-candidate`。不得用通用画风迁移编辑修补失败候选。失败时拒收整张图，并用同一正式调用包重新基础生成。
 - 最终候选必须运行 `scripts/validate_style_20_asset.py`。验证器自动检查暖白、黑色、芥末黄、珊瑚红、禁用冷色和荧光黄比例。评分卡必须绑定候选图的 SHA-256，并记录预期主体、实际主体、身份是否保留、必要物件是否保留。只有主体内容锁通过、总分至少 34/40、无硬失败项且验证器退出码为 0 时才能标为 final。
 - 角色参考图作为单独的 `character` 输入排在 `style-only` 锚点之后，不能替代画风锚点。模型快照或高保真参考输入不可用时，正式生产失败关闭；换模型只允许标为非生产预览。
 - `--subject` 只能描述人物、动物、动作、关系和最多两件必要道具，不能塞入画风、线条、配色或纸面指令。正式生产固定无字；`--text` 只接受“不加任何文字”，`--title` 不适用。
+
+风格22按 v1.1.0 第一风格迁入，配方与用户指定的骑行锚点见 STYLES.md 对应章节；第二组彩墨未迁入。
+
+- 生成提示词前完整读取并执行 [包内 sweety-image-art-direction](docs/image-art-direction.md)，落实输入分工、关键保留项、大形主次、线面/颜色和检查目标；只写 Skill 名称不算执行预处理。默认摄影建议不能覆盖22号的漫画式概括和朱墨色板。
+- 默认输出 JSON，包含 `preprocessing` 完整说明、画风参考与执行前检查项。原图通过 `--source-image PATH` 传入并标为 `content-source`；画风参考为 `style-only`，其人物、服装、10号、车和构图不得移植到新内容。
+- 本地图片先查看再实际传入生成工具。没有原图时可以根据文字创作；有原图时保留主体数量、识别点、动作、接触关系、主要构图和裁切。用户显式指定比例优先，否则沿用原图比例。文字默认“不加任何文字”；原图需要保留的数字或标识通过 `--text` 明确。
+- 只查看文字配方可显式用 `--format text --text-only-preview`，不能把该预览当作已使用锚点的正式图像执行。本项目仍只输出提示词/调用包。
+- 迁移登记和本地结构验证不等于新锚点的跨主体视觉验证。图片发布与图床状态见 [迁入记录](docs/style-22-review.md)。
 
 ### 3. 自动填充占位符
 

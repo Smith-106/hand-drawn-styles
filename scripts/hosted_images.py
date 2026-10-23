@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Resolve hosted images by checksum and prepare complete Netlify deployments."""
+"""Resolve hosted images by checksum and prepare complete static deployments."""
 
 from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import json
 import os
 import re
@@ -187,6 +188,29 @@ def build_site_archive(baseline: Path, output: Path, *, manifest: dict | None = 
     return {"archive": str(output.resolve()), "archive_bytes": output.stat().st_size, "image_count": len(manifest["images"])}
 
 
+def build_gallery_archive(output: Path, *, manifest: dict | None = None, cache_root: Path | None = None) -> dict:
+    """Build an independent image-only site from the registered image set."""
+    manifest = validate_manifest(manifest or load_manifest())
+    prefix = urlsplit(manifest["base_url"]).path.strip("/")
+    if not prefix or ".." in PurePosixPath(prefix).parts:
+        raise ValueError("图片托管必须使用独立目录")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="hand-drawn-gallery-") as temporary:
+        candidate = Path(temporary) / "gallery.zip"
+        with zipfile.ZipFile(candidate, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+            links = []
+            for key, record in sorted(manifest["images"].items()):
+                source = resolve_image(key, manifest=manifest, cache_root=cache_root)
+                archive.write(source, f"{prefix}/{key}")
+                links.append(f'<li><a href="{html.escape(record["url"], quote=True)}">{html.escape(key)}</a></li>')
+            index = '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>手绘风格图库</title><h1>手绘风格图库</h1><p>图片内容由项目清单登记，下载时核对大小和 SHA-256。</p><ul>' + "".join(links) + '</ul></html>'
+            archive.writestr("index.html", index.encode())
+            archive.writestr("404.html", b"<!doctype html><title>Not found</title><h1>404</h1>")
+            archive.writestr(f"{prefix}/image-manifest.json", json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+        shutil.copyfile(candidate, output)
+    return {"archive": str(output.resolve()), "archive_bytes": output.stat().st_size, "image_count": len(manifest["images"])}
+
+
 def runtime_image_keys() -> list[str]:
     import render_prompt
     manifest = load_manifest()
@@ -194,7 +218,7 @@ def runtime_image_keys() -> list[str]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="登记、下载、验证托管图片；构建保留原站点的 Netlify ZIP")
+    parser = argparse.ArgumentParser(description="登记、下载、验证托管图片；构建独立图库或保留原站点的 ZIP")
     commands = parser.add_subparsers(dest="command", required=True)
     for command in ("fetch", "verify"):
         selection = commands.add_parser(command)
@@ -204,12 +228,16 @@ def main() -> int:
     registration.add_argument("key", help="新的稳定路径，例如 examples/new-style.png")
     registration.add_argument("source", type=Path, help="完成隐私清理的原始图片")
     site = commands.add_parser("build-site")
-    site.add_argument("--base-zip", type=Path, required=True, help="从 Netlify 下载的当前完整部署 ZIP")
+    site.add_argument("--base-zip", type=Path, required=True, help="旧站点兼容维护：当前完整部署 ZIP")
     site.add_argument("--output", type=Path, default=ROOT / "dist/netlify-images/hand-drawn-netlify.zip")
+    gallery = commands.add_parser("build-gallery", help="构建独立静态图库，不包含原站点其他页面")
+    gallery.add_argument("--output", type=Path, default=ROOT / "dist/pages-images/hand-drawn-images.zip")
     args = parser.parse_args()
     try:
         if args.command == "register":
             result = {"status": "registered-not-published", **register_image(args.key, args.source)}
+        elif args.command == "build-gallery":
+            result = {"status": "candidate-not-published", **build_gallery_archive(args.output)}
         elif args.command == "build-site":
             result = {"status": "candidate-not-published", **build_site_archive(args.base_zip, args.output)}
         else:

@@ -2513,6 +2513,133 @@
           "sources": []
         }
       ]
+    },
+    "22": {
+      "suitable_for": [
+        {
+          "task": "把人物照片或插画转为朱墨水墨漫画",
+          "basis": "editorial-suggestion",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:22",
+              "availability": "runtime"
+            }
+          ]
+        },
+        {
+          "task": "以简练线面和留白表现原图动作与物件关系",
+          "basis": "editorial-suggestion",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:22",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "selection_cues": [
+        {
+          "description": "近乎纸白的漫画五官、完整大墨团与游丝长线、黑白灰和少量朱红；允许适度漫画化。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:22",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "recipe-constraint",
+          "description": "需要实际传入画风锚点并先执行内置美术指导预处理；不默认肉色、做旧纸、印章或签名。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:22",
+              "availability": "runtime"
+            }
+          ]
+        },
+        {
+          "kind": "selection-advice",
+          "description": "照片级五官、精密部件和完整背景细节会收窄写意空间；非人物泛化须逐图验证。画风锚点已发布到 Cloudflare Pages 并通过匿名大小与 SHA-256 校验。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:22",
+              "availability": "runtime"
+            },
+            {
+              "document": "docs/style-22-review.md",
+              "section": "document",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "related_styles": [
+        {
+          "style_id": "8",
+          "difference": "21是基于原图的朱墨漫画概括和游丝大墨团；8是传统毛笔写意，含宣纸渗化和朱红印章。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:22",
+              "availability": "runtime"
+            },
+            {
+              "document": "STYLES.md",
+              "section": "style:8",
+              "availability": "runtime"
+            }
+          ]
+        },
+        {
+          "style_id": "17",
+          "difference": "21用黑白灰朱红与完整墨面省笔；17用钢笔骨架、轻薄协调彩色和局部排线。",
+          "sources": [
+            {
+              "document": "STYLES.md",
+              "section": "style:22",
+              "availability": "runtime"
+            },
+            {
+              "document": "STYLES.md",
+              "section": "style:17",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ],
+      "evidence": [
+        {
+          "type": "user-approved",
+          "scope": "用户明确选择的v1.1.0第一风格及骑行附件。",
+          "conclusion": "该附件获明确选择；本次仅迁入和核验附件，未重新生成或证明新编号的全部泛化。",
+          "sources": [
+            {
+              "document": "docs/style-22-review.md",
+              "section": "document",
+              "availability": "runtime"
+            }
+          ]
+        },
+        {
+          "type": "internal-reviewed",
+          "scope": "历史第一风格雪山环湖转绘的跨主体观察。",
+          "conclusion": "迁入前重新查看既有结果，主要环湖关系和墨面存在；新锚点调用包的跨主体稳定性尚待实图回归。",
+          "sources": [
+            {
+              "document": "docs/style-22-review.md",
+              "section": "document",
+              "availability": "runtime"
+            }
+          ]
+        }
+      ]
     }
   }
 }

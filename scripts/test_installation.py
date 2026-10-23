@@ -48,7 +48,7 @@ class InstallationTests(unittest.TestCase):
             self.assertFalse(any(part in name for name in names for part in ("/.git/", "/benchmarks/", "/artifacts/", "/__pycache__/")))
             self.assertFalse(any("monologue" in name or "style-21" in name for name in names))
             references = {reference for style in check_skill.render_prompt.list_styles() for reference in style["references"]}
-            self.assertEqual(len(references), 5)
+            self.assertEqual(len(references), 6)
             self.assertFalse(any(Path(name).suffix.lower() in hosted_images.IMAGE_SUFFIXES for name in names))
             manifest = json.loads(archive.read("hand-drawn/assets/image-manifest.json"))
             registered_urls = {record["url"] for record in manifest["images"].values()}
@@ -60,7 +60,7 @@ class InstallationTests(unittest.TestCase):
     def test_installed_archive_exercises_all_styles_outside_checkout(self) -> None:
         report = build_skill_package.verify_archive(self.archive)
         self.assertEqual(report["status"], "pass")
-        self.assertEqual(report["smoke_checked"], 21)
+        self.assertEqual(report["smoke_checked"], 22)
         self.assertTrue(all(style["status"] == "pass" for style in report["styles"]))
 
     def test_installed_style_3_1_validator_help_is_available(self) -> None:
@@ -96,7 +96,7 @@ class InstallationTests(unittest.TestCase):
             self.assertEqual(catalog.returncode, 0, catalog.stderr)
             self.assertEqual(legacy.returncode, 0, legacy.stderr)
             self.assertEqual(checked.returncode, 0, checked.stdout + checked.stderr)
-            self.assertEqual(len(json.loads(catalog.stdout)), 21)
+            self.assertEqual(len(json.loads(catalog.stdout)), 22)
             self.assertEqual([{key: value for key, value in style.items() if key != "guidance"}
                               for style in json.loads(catalog.stdout)], json.loads(legacy.stdout))
             self.assertFalse((root / "benchmarks").exists())

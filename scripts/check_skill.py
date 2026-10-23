@@ -24,6 +24,7 @@ RUNTIME_FILES = (
     "scripts/validate_style_20_asset.py", "scripts/validate_style_3_1_asset.py",
     "docs/style-3.1-review.md", "docs/style-selection.md", "docs/style-comparison.md", "catalog/style-guidance.json",
     "scripts/hosted_images.py", "assets/image-manifest.json", "docs/image-hosting.md",
+    "docs/image-art-direction.md", "docs/style-22-review.md",
 )
 DEFAULT_SCENE = (
     "SCENE: background painted with long rough vertical and diagonal dry-brush streaks "
@@ -53,6 +54,7 @@ SMOKE_PARAMETERS = {
     "18": {"主体": "a child holding a book", "构图": "full-body, centered in the lower-middle with huge calm negative space", "文字": "No text anywhere."},
     "19": {"主体": "a small elephant lifting one paper lantern with its trunk", "文字": "No text anywhere."},
     "20": {"主体": "a grandmother and child repairing one kite together", "文字": "No text anywhere."},
+    "22": {"主体": "一只猫站在自行车旁边", "文字": "不加任何文字"},
 }
 
 
@@ -151,7 +153,7 @@ def run_smoke_checks(root: Path) -> list[dict[str, object]]:
                 failure = f"退出码 {completed.returncode}"
             prompt = completed.stdout
             json_output = completed.stdout
-            if not failure and style_id not in {"3.1", "19", "20"}:
+            if not failure and style_id not in {"3.1", "19", "20", "22"}:
                 try:
                     json_completed = subprocess.run(command + ["--format", "json"], cwd=working_directory, capture_output=True, text=True, timeout=60)
                     json_output = json_completed.stdout
@@ -162,7 +164,7 @@ def run_smoke_checks(root: Path) -> list[dict[str, object]]:
             if not failure:
                 try:
                     payload = json.loads(json_output)
-                    if style_id not in {"3.1", "19", "20"} and payload["prompt"] != prompt.rstrip("\n"):
+                    if style_id not in {"3.1", "19", "20", "22"} and payload["prompt"] != prompt.rstrip("\n"):
                         failure = "纯文本与 JSON 的 prompt 不一致"
                     prompt = payload["prompt"]
                     if payload["style_id"] != style_id:
